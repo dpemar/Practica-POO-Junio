@@ -8,7 +8,7 @@ public class BolsaDeValores {
 	private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 
 	// Añadir empresa
-	public void añadirEmpresa(Empresa empresa) {
+	public void a�adirEmpresa(Empresa empresa) {
 		this.listaEmpresas.add(empresa);
 	}
 
@@ -29,6 +29,14 @@ public class BolsaDeValores {
 		for (Empresa empresa : listaEmpresas) {
 			empresa.actualizarValorAcciones();
 		}
+	}
+
+	public String getNombreBolsa() {
+		return nombreBolsa;
+	}
+
+	public void setNombreBolsa(String nombreBolsa) {
+		this.nombreBolsa = nombreBolsa;
 	}
 
 }

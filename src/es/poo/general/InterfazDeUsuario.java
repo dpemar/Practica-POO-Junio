@@ -3,6 +3,7 @@ package es.poo.general;
 import java.util.Scanner;
 
 public class InterfazDeUsuario {
+	private static Scanner sc;
 	public static void mostrarmenu(){
 		System.out.println("0.- Salir");
 		System.out.println("----------------- ESTADO --------------");
@@ -32,7 +33,7 @@ public class InterfazDeUsuario {
 		System.out.println("19.- Mostrar menu");
 		}
 	public static void seleccion(){
-	Scanner sc = new Scanner(System.in);
+	sc = new Scanner(System.in);
 	int numero;
 	mostrarmenu();
 	while(true){
@@ -40,7 +41,8 @@ public class InterfazDeUsuario {
 			switch(numero){
 			case 0: System.out.println("mostrar 0");
 	        		break;
-			case 1: System.out.println("mostrar 1");
+			case 1: System.out.println("Imprimir estado de los clientes");
+					
 					break;
 			case 2: System.out.println("mostrar 2");
 					break;

@@ -3,11 +3,11 @@ package es.poo.banco;
 import java.util.ArrayList;
 
 public class Cliente extends Persona{
-String saldo;
+double saldo;
 ArrayList <PaqueteDeAcciones> paqueteDeAcciones = new ArrayList<PaqueteDeAcciones>();
 
 
-public Cliente(String nombre, String dni, String saldo, ArrayList<PaqueteDeAcciones> paqueteDeAcciones) {
+public Cliente(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> paqueteDeAcciones) {
 	super(nombre, dni);
 	this.saldo = saldo;
 	this.paqueteDeAcciones = paqueteDeAcciones;
@@ -33,10 +33,10 @@ public void setDni(String dni) {
 	super.setDni(dni);
 }
 
-public String getSaldo() {
+public double getSaldo() {
 	return saldo;
 }
-public void setSaldo(String saldo) {
+public void setSaldo(double saldo) {
 	this.saldo = saldo;
 }
 public ArrayList<PaqueteDeAcciones> getPaqueteDeAcciones() {
