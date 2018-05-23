@@ -6,7 +6,7 @@ public class ClientePremium extends Cliente {
 	AgenteDeInversores gestor = new AgenteDeInversores();
 
 	public ClientePremium(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> paqueteDeAcciones,
-			AgenteDeInversores gestor) {
+			 AgenteDeInversores gestor){
 		super(nombre, dni, saldo, paqueteDeAcciones);
 		this.gestor = gestor;
 	}	

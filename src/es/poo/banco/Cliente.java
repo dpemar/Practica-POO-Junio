@@ -7,7 +7,7 @@ double saldo;
 ArrayList <PaqueteDeAcciones> paqueteDeAcciones = new ArrayList<PaqueteDeAcciones>();
 
 
-public Cliente(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> paqueteDeAcciones) {
+public Cliente(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> paqueteDeAcciones2) {
 	super(nombre, dni);
 	this.saldo = saldo;
 	this.paqueteDeAcciones = paqueteDeAcciones;
@@ -47,7 +47,7 @@ public void setPaqueteDeAcciones(ArrayList<PaqueteDeAcciones> paqueteDeAcciones)
 }
 @Override
 public String toString() {
-	return "Cliente [nombre=" + nombre + ", dni=" + dni + ", saldo=" + saldo + ", paqueteDeAcciones="
+	return  "Cliente [nombre=" + nombre + ", dni=" + dni + ", saldo=" + saldo + ", paqueteDeAcciones="
 			+ paqueteDeAcciones + "]";
 }
 

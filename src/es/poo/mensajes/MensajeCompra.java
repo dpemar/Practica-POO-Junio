@@ -4,7 +4,7 @@ public class MensajeCompra extends Mensaje {
 
 	private int maxInversion;
 
-	public MensajeCompra(int maxInversion) {
+	public MensajeCompra(int maxInversion2) {
 		super();
 		this.maxInversion = maxInversion;
 	}

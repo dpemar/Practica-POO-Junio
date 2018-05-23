@@ -2,6 +2,8 @@ package es.poo.general;
 
 import java.util.Scanner;
 
+import es.poo.banco.Banco;
+
 public class InterfazDeUsuario {
 	private static Scanner sc;
 	public static void mostrarmenu(){
@@ -35,6 +37,7 @@ public class InterfazDeUsuario {
 	public static void seleccion(){
 	sc = new Scanner(System.in);
 	int numero;
+	Banco banco = new Banco();
 	mostrarmenu();
 	while(true){
 			numero = sc.nextInt();
@@ -42,7 +45,7 @@ public class InterfazDeUsuario {
 			case 0: System.out.println("mostrar 0");
 	        		break;
 			case 1: System.out.println("Imprimir estado de los clientes");
-					
+					banco.mostrarClientes();
 					break;
 			case 2: System.out.println("mostrar 2");
 					break;

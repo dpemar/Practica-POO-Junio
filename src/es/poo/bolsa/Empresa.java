@@ -9,7 +9,7 @@ public class Empresa {
 	private int valorAccionPrevio;
 	private int incremento = (valorAccionPrevio - valorAccionActual);
 
-	// Constructor
+	
 	public Empresa(String nombreEmpresa, int valorAccionActual, int valorAccionPrevio) {
 		super();
 		this.nombreEmpresa = nombreEmpresa;
@@ -17,7 +17,7 @@ public class Empresa {
 		this.valorAccionPrevio = valorAccionPrevio;
 	}
 
-	// Get&Set
+	
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
 	}
@@ -50,7 +50,7 @@ public class Empresa {
 		this.incremento = incremento;
 	}
 
-	// Actualizar valor de las Acciones
+	
 	public void actualizarValorAcciones() {
 		Random random = new Random();
 		int valorAleatorio = random.nextInt();
@@ -59,15 +59,15 @@ public class Empresa {
 		this.valorAccionActual = valorAleatorio;
 	}
 
-	// Mostrar datos empresa
+
 	public void mostrarEstadoEmpresa() {
 		System.out.println("Nombre empresa: " + this.nombreEmpresa);
 		System.out.println("Valor accion previo: " + this.valorAccionPrevio);
 		System.out.println("Valor accion actual: " + this.valorAccionActual);
 		if (this.valorAccionActual > this.valorAccionPrevio) {
-			System.out.println("↑" + this.incremento);
+			System.out.println("mas" + this.incremento);
 		} else {
-			System.out.println("↓" + this.incremento);
+			System.out.println("menos" + this.incremento);//las flechas dan error
 		}
 	}
 

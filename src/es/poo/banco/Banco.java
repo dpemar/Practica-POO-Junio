@@ -11,7 +11,7 @@ public class Banco {
 		super();
 	}
 
-	public Banco(String nombreB, HashSet<Cliente> bolsaClientes, AgenteDeInversores broker) {
+	public Banco(String nombreB, HashSet<Cliente> bolsaClientes,AgenteDeInversores broker) {
 		super();
 		this.nombreB = nombreB;
 		this.bolsaClientes = bolsaClientes;
@@ -42,7 +42,7 @@ public class Banco {
 		this.broker = broker;
 	}
 
-	public void aÃ±adirCliente(Cliente cliente) {
+	public void añadirCliente(Cliente cliente) {
 		this.bolsaClientes.add(cliente);
 	}
 
@@ -51,7 +51,9 @@ public class Banco {
 	}
 
 	public void mostrarClientes() {
-		System.out.println(this.bolsaClientes);
+		for (Cliente bolsa : bolsaClientes) {
+			bolsa.toString();
+		}
 	}
 
 }
