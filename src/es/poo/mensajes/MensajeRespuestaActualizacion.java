@@ -1,5 +1,5 @@
 package es.poo.mensajes;
 
-public class MensajeRespuestaActualizacion {
+public class MensajeRespuestaActualizacion extends MensajeActualizacion{
 
 }
