@@ -7,11 +7,21 @@ import es.poo.banco.Banco;
 import es.poo.banco.Cliente;
 
 public class Simulador {
-	HashSet <Cliente> bolsaCli = new HashSet <Cliente>();
-	AgenteDeInversores broker = new AgenteDeInversores();
-	Cliente cliente1 = new Cliente("nombre"," dni", 150, null) ;
-	Banco banco1 = new Banco("Santander", bolsaCli, broker);
-public static void iniciar(){
-	InterfazDeUsuario.seleccion();
-}
+
+	static HashSet<Cliente> bolsaCli = new HashSet<Cliente>();
+	static AgenteDeInversores broker = new AgenteDeInversores();
+	static Cliente cliente1 = new Cliente("nombre", " dni", 150, null);
+	static Banco banco = new Banco("Santander", bolsaCli, broker);
+
+	public static void main(String[] args) {
+		banco.añadirCliente(cliente1);
+	}
+
+	public void añadir(Banco b) {
+		banco.añadirCliente(cliente1);
+	}
+
+	public static void iniciar() {
+		InterfazDeUsuario.seleccion();
+	}
 }
