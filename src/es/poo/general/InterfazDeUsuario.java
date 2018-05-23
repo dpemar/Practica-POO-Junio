@@ -12,14 +12,14 @@ public class InterfazDeUsuario {
 		System.out.println("1.- Imprimir estado de los clientes");
 		System.out.println("2.- Imprimir estado de la bolsa");
 		System.out.println("----------------- BANCO ---------------");
-		System.out.println("3.- Añadir cliente ");
+		System.out.println("3.- Anadir cliente ");
 		System.out.println("4.- Eliminar cliente ");
 		System.out.println("5.- Realizar copia de seguridad  ");
 		System.out.println("6.- Restaurar copia de seguridad ");
 		System.out.println("7.- Mejorar cliente a PREMIUM ");
 		System.out.println("8.- Solicita recomendacion de inversion ");
 		System.out.println("----------------- BOLSA ----------------");
-		System.out.println("9.- Añadir empresa a la bolsa ");
+		System.out.println("9.- Anadir empresa a la bolsa ");
 		System.out.println("10.- Eliminar empresa de la bolsa ");
 		System.out.println("11.- Actualizacion de valores ");
 		System.out.println("12.- Realizar copia de seguridad ");

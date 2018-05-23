@@ -8,7 +8,7 @@ public class BolsaDeValores {
 	private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 
 	// AÃ±adir empresa
-	public void añadirEmpresa(Empresa empresa) {
+	public void anadirEmpresa(Empresa empresa) {
 		this.listaEmpresas.add(empresa);
 	}
 

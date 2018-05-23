@@ -42,7 +42,7 @@ public class Banco {
 		this.broker = broker;
 	}
 
-	public void añadirCliente(Cliente cliente) {
+	public void anadirCliente(Cliente cliente) {
 		this.bolsaClientes.add(cliente);
 	}
 

@@ -14,9 +14,9 @@ public class Simulador {
 		Cliente cliente2 = new Cliente("nombre2", " dn2", 150, null);
 		Cliente cliente3 = new Cliente("nombre3", " dni3", 150, null);
 		Banco banco = new Banco("Santander", bolsaCli, broker);
-		banco.añadirCliente(cliente1);
-		banco.añadirCliente(cliente2);
-		banco.añadirCliente(cliente3);
+		banco.anadirCliente(cliente1);
+		banco.anadirCliente(cliente2);
+		banco.anadirCliente(cliente3);
 		
 	
 		InterfazDeUsuario.seleccion();
