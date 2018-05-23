@@ -20,8 +20,15 @@ public class BolsaDeValores {
 	// Listado estado empresas
 	public void listarEstadoEmpresas() {
 		for (Empresa empresa : listaEmpresas) {
-			System.out.println("Valor actual accion: " + empresa.getValorAccionActual());
-			System.out.println("Incremento: " + empresa.getIncremento());
+			empresa.mostrarEstadoEmpresa();
 		}
 	}
+
+	// Actualizar valor acciones
+	public void actualizarValorAcciones() {
+		for (Empresa empresa : listaEmpresas) {
+			empresa.actualizarValorAcciones();
+		}
+	}
+
 }

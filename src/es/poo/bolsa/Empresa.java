@@ -1,5 +1,7 @@
 package es.poo.bolsa;
 
+import java.util.Random;
+
 public class Empresa {
 
 	private String nombreEmpresa;
@@ -47,6 +49,26 @@ public class Empresa {
 	public void setIncremento(int incremento) {
 		this.incremento = incremento;
 	}
-	
+
+	// Actualizar valor de las Acciones
+	public void actualizarValorAcciones() {
+		Random random = new Random();
+		int valorAleatorio = random.nextInt();
+
+		this.valorAccionPrevio = this.valorAccionActual;
+		this.valorAccionActual = valorAleatorio;
+	}
+
+	// Mostrar datos empresa
+	public void mostrarEstadoEmpresa() {
+		System.out.println("Nombre empresa: " + this.nombreEmpresa);
+		System.out.println("Valor accion previo: " + this.valorAccionPrevio);
+		System.out.println("Valor accion actual: " + this.valorAccionActual);
+		if (this.valorAccionActual > this.valorAccionPrevio) {
+			System.out.println("↑" + this.incremento);
+		} else {
+			System.out.println("↓" + this.incremento);
+		}
+	}
 
 }
