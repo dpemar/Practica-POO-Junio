@@ -45,10 +45,10 @@ public ArrayList<PaqueteDeAcciones> getPaqueteDeAcciones() {
 public void setPaqueteDeAcciones(ArrayList<PaqueteDeAcciones> paqueteDeAcciones) {
 	this.paqueteDeAcciones = paqueteDeAcciones;
 }
-@Override
-public String toString() {
-	return  "Cliente [nombre=" + nombre + ", dni=" + dni + ", saldo=" + saldo + ", paqueteDeAcciones="
-			+ paqueteDeAcciones + "]";
+public void  mostrarEstadoClientes() {
+	System.out.println("Nombre cliente: " + nombre);
+	System.out.println("Dni: " + dni);
+	System.out.println("Saldo actual: " + saldo);
 }
 
 

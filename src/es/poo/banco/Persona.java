@@ -21,4 +21,8 @@ public class Persona {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+	/*public void mostrarEstadoClientes() {
+		// TODO Auto-generated method stub
+		
+	}*/
 }

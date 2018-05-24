@@ -45,13 +45,16 @@ public class InterfazDeUsuario {
 			case 0: System.out.println("mostrar 0");
 	        		break;
 			case 1: System.out.println("Imprimir estado de los clientes");
-					banco.mostrarClientes();
+					Simulador.mostrarClientes();
 					break;
 			case 2: System.out.println("mostrar 2");
+					
 					break;
-			case 3: System.out.println("mostrar 3");
+			case 3: System.out.println("Añadir cliente");
+					Simulador.clienteConDatos();
 					break;
 			case 4: System.out.println("mostrar 4");
+					Simulador.eliminarCliNombre();
 					break;
 			case 5: System.out.println("mostrar 5");
 					break;

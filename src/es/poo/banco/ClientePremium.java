@@ -3,10 +3,10 @@ package es.poo.banco;
 import java.util.ArrayList;
 
 public class ClientePremium extends Cliente {
-	AgenteDeInversores gestor = new AgenteDeInversores();
+	AgenteDeInversiones gestor = new AgenteDeInversiones();
 
 	public ClientePremium(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> paqueteDeAcciones,
-			 AgenteDeInversores gestor){
+			AgenteDeInversiones gestor){
 		super(nombre, dni, saldo, paqueteDeAcciones);
 		this.gestor = gestor;
 	}	
