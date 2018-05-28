@@ -2,10 +2,12 @@ package es.poo.banco;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.io.*;
 
 public class Banco {
 	private String nombreB;
-	private HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
+	public HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
+	public Cliente[] array = new Cliente[bolsaClientes.size()];
 	private AgenteDeInversiones broker = new AgenteDeInversiones();
 
 	public Banco() {
@@ -59,6 +61,7 @@ public class Banco {
 			}
 		}
 		this.bolsaClientes.remove(encontrado);
+		System.out.println("el cliente fue eliminado");
 	}
 
 	public boolean equals(String cliente, String client) {
@@ -75,5 +78,6 @@ public class Banco {
 			bolsa.mostrarEstadoClientes();
 		}
 	}
+	
 
 }

@@ -53,12 +53,14 @@ public class InterfazDeUsuario {
 			case 3: System.out.println("Añadir cliente");
 					Simulador.clienteConDatos();
 					break;
-			case 4: System.out.println("mostrar 4");
+			case 4: System.out.println("Eliminar cliente");
 					Simulador.eliminarCliNombre();
 					break;
-			case 5: System.out.println("mostrar 5");
+			case 5: System.out.println("Realizar copia de seguridad");
+					Simulador.copiaSeguridad();
 					break;
-			case 6: System.out.println("mostrar 6");
+			case 6: System.out.println("Recuperar copia de seguridad");
+					Simulador.restaurarCopia();
 					break;
 			case 7: System.out.println("mostrar 7");
 					break; 

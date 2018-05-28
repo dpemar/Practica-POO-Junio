@@ -1,8 +1,9 @@
 package es.poo.banco;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable{
 	
 	double saldo;
 	ArrayList<PaqueteDeAcciones> paqueteDeAcciones = new ArrayList<PaqueteDeAcciones>();
