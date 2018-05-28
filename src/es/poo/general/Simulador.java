@@ -6,29 +6,96 @@ import java.util.Scanner;
 import es.poo.banco.AgenteDeInversiones;
 import es.poo.banco.Banco;
 import es.poo.banco.Cliente;
+import es.poo.bolsa.BolsaDeValores;
+import es.poo.bolsa.Empresa;
 
 public class Simulador {
+
 	static HashSet<Cliente> bolsaCli = new HashSet<Cliente>();
 	private static Cliente cli;
 	private static Banco banco;
+	// Lista de Empresas
+	public static HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
+	// Bolsa de Valores
+	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
 
 	public static void iniciar() {
+
+		// Agentes de Inversores
 		AgenteDeInversiones broker = new AgenteDeInversiones();
+
+		// Clientes
 		Cliente cliente1 = new Cliente("nombre", " dni", 150, null);
 		Cliente cliente2 = new Cliente("nombre2", " dn2", 150, null);
 		Cliente cliente3 = new Cliente("nombre3", " dni3", 150, null);
+
+		// Banco
 		banco = new Banco("Santander", bolsaCli, broker);
 		banco.anadirCliente(cliente1);
 		banco.anadirCliente(cliente2);
 		banco.anadirCliente(cliente3);
 		banco.eliminarCliente(cliente3);
+		Banco banco2 = new Banco("Santander", bolsaCli, broker);
+
+		// Empresa
+		Empresa empresa1 = new Empresa("Empresa1", 12, 10);
+		Empresa empresa2 = new Empresa("Empresa2", 10, 15);
+		Empresa empresa3 = new Empresa("Empresa3", 20, 12);
+
+		// BolsaDeValores
+		bolsa1.anadirEmpresa(empresa1);
+		bolsa1.anadirEmpresa(empresa2);
+		bolsa1.anadirEmpresa(empresa3);
+
+		// Interfaz de Usuario
 		InterfazDeUsuario.seleccion();
 	}
 
+	// 1. Mostrar Estado de los Clientes
 	public static void mostrarClientes() {
 		for (Cliente bolsa : bolsaCli) {
 			bolsa.mostrarEstadoClientes();
 		}
+	}
+
+	// 2. Mostrar Estado de la Bolsa
+	public static void mostrarEstadoBolsa() {
+		for (Empresa empresa : listaEmpresas) {
+			empresa.mostrarEstadoEmpresa();
+		}
+	}
+
+	// 9. Anadir Empresa a la Bolsa
+	public static void anadirEmpresa() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Nombre empresa: ");
+		String nombreEmpresa = sc.nextLine();
+
+		System.out.println("Valor accion actual: ");
+		Float valorAccionActual = sc.nextFloat();
+
+		System.out.println("Valor accion previo: ");
+		Float valorAccionPrevio = sc.nextFloat();
+
+		Empresa empresaNueva = new Empresa(nombreEmpresa, valorAccionActual, valorAccionPrevio);
+		bolsa1.anadirEmpresa(empresaNueva);
+		System.out.println("Empresa " + nombreEmpresa + " anadida correctamente a la bolsa " + bolsa1.getNombreBolsa());
+	}
+
+	// 10. Eliminar Empresa de la Bolsa
+	public static void eliminarEmpresa() {
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Nombre empresa: ");
+		String nombreEmpresa = sc.nextLine();
+
+		bolsa1.eliminarEmpresa(nombreEmpresa);
+		System.out.println("Empresa " + nombreEmpresa + " eliminada correctamente.");
+	}
+
+	// 11. Actualizacion de Valores
+	public static void actualizarValoresAcciones() {
+		bolsa1.actualizarValorAcciones();
 	}
 
 	public static void clienteConDatos() {

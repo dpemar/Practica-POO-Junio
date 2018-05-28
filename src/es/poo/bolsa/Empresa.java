@@ -5,23 +5,23 @@ import java.util.Random;
 public class Empresa {
 
 	private String nombreEmpresa;
-	private int valorAccionActual;
-	private int valorAccionPrevio;
-	private int incremento = (valorAccionPrevio - valorAccionActual);
+	private float valorAccionActual;
+	private float valorAccionPrevio;
+	private float incremento;
+	// Valor min/max acciones aleatorias
+	private int minValor = 1;
+	private int maxValor = 99;
 
-	
-	public Empresa(String nombreEmpresa, int valorAccionActual, int valorAccionPrevio) {
+	public Empresa(String nombreEmpresa, float valorAccionActual, float valorAccionPrevio) {
 		super();
 		this.nombreEmpresa = nombreEmpresa;
 		this.valorAccionActual = valorAccionActual;
 		this.valorAccionPrevio = valorAccionPrevio;
 	}
 
-	
 	public Empresa() {
-		// TODO Auto-generated constructor stub
-	}
 
+	}
 
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
@@ -31,7 +31,7 @@ public class Empresa {
 		this.nombreEmpresa = nombreEmpresa;
 	}
 
-	public int getValorAccionActual() {
+	public float getValorAccionActual() {
 		return valorAccionActual;
 	}
 
@@ -39,7 +39,7 @@ public class Empresa {
 		this.valorAccionActual = valorAccionActual;
 	}
 
-	public int getValorAccionPrevio() {
+	public float getValorAccionPrevio() {
 		return valorAccionPrevio;
 	}
 
@@ -47,33 +47,35 @@ public class Empresa {
 		this.valorAccionPrevio = valorAccionPrevio;
 	}
 
-	public int getIncremento() {
-		return incremento;
+	public float getIncremento() {
+		return (valorAccionActual - valorAccionPrevio);
 	}
 
 	public void setIncremento(int incremento) {
 		this.incremento = incremento;
 	}
 
-	
+	// Actualizar el valor de las acciones
 	public void actualizarValorAcciones() {
 		Random random = new Random();
-		int valorAleatorio = random.nextInt();
+		float valorAleatorioPrevio = minValor + random.nextFloat() * (maxValor - minValor);
+		float valorAleatorioActual = minValor + random.nextFloat() * (maxValor - minValor);
 
-		this.valorAccionPrevio = this.valorAccionActual;
-		this.valorAccionActual = valorAleatorio;
+		this.valorAccionPrevio = Math.round(valorAleatorioPrevio);
+		this.valorAccionActual = Math.round(valorAleatorioActual);
 	}
 
-
+	// Mostrar estado empresa
 	public void mostrarEstadoEmpresa() {
 		System.out.println("Nombre empresa: " + this.nombreEmpresa);
 		System.out.println("Valor accion previo: " + this.valorAccionPrevio);
 		System.out.println("Valor accion actual: " + this.valorAccionActual);
 		if (this.valorAccionActual > this.valorAccionPrevio) {
-			System.out.println("mas" + this.incremento);
+			System.out.println("Incrementa: " + this.getIncremento());
 		} else {
-			System.out.println("menos" + this.incremento);//las flechas dan error
+			System.out.println("Decrementa: " + this.getIncremento());
 		}
+		System.out.println("-----------------");
 	}
 
 }
