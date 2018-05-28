@@ -12,7 +12,7 @@ public class Banco {
 		super();
 	}
 
-	public Banco(String nombreB, HashSet<Cliente> bolsaClientes,AgenteDeInversiones broker) {
+	public Banco(String nombreB, HashSet<Cliente> bolsaClientes, AgenteDeInversiones broker) {
 		super();
 		this.nombreB = nombreB;
 		this.bolsaClientes = bolsaClientes;
@@ -50,36 +50,30 @@ public class Banco {
 	public void eliminarCliente(Cliente cliente) {
 		this.bolsaClientes.remove(cliente);
 	}
+
 	public void eliminarCliente(String cliente) {
-		Iterator<Cliente> iterator = bolsaClientes.iterator();
-		while (iterator.hasNext()){
-		Cliente item = iterator.next();
-		if(item.nombre.equals(cliente)){
-			bolsaClientes.remove(item);
-			System.out.println("el cliente fue eliminado");
-		}
-	}
-		/*for (Cliente cli : bolsaClientes){
-			if(cli.getNombre().equals(cliente)){
-				this.bolsaClientes.remove(cli);
-				System.out.println("el cliente fue eliminado");
+		Cliente encontrado = null;
+		for (Cliente client : bolsaClientes) {
+			if (client.getNombre().equals(cliente)) {
+				encontrado = client;
 			}
-		}*/
+		}
+		this.bolsaClientes.remove(encontrado);
 	}
-	
-	public boolean equals(String cliente,String client){
-		if (cliente.equals(client)) { 
+
+	public boolean equals(String cliente, String client) {
+		if (cliente.equals(client)) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
+
 	}
+
 	public void mostrarClientes() {
 		for (Cliente bolsa : bolsaClientes) {
 			bolsa.mostrarEstadoClientes();
 		}
 	}
-	
 
 }

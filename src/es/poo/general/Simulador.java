@@ -17,37 +17,39 @@ public class Simulador {
 		Cliente cliente1 = new Cliente("nombre", " dni", 150, null);
 		Cliente cliente2 = new Cliente("nombre2", " dn2", 150, null);
 		Cliente cliente3 = new Cliente("nombre3", " dni3", 150, null);
-	    banco = new Banco("Santander", bolsaCli, broker);
+		banco = new Banco("Santander", bolsaCli, broker);
 		banco.anadirCliente(cliente1);
 		banco.anadirCliente(cliente2);
 		banco.anadirCliente(cliente3);
 		banco.eliminarCliente(cliente3);
 		InterfazDeUsuario.seleccion();
 	}
+
 	public static void mostrarClientes() {
 		for (Cliente bolsa : bolsaCli) {
 			bolsa.mostrarEstadoClientes();
 		}
 	}
-	public static void clienteConDatos(){
+
+	public static void clienteConDatos() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca su nombre");
 		String nombre = sc.nextLine();
-		
+
 		System.out.println("Introduzca su dni");
 		String dni = sc.nextLine();
-		
+
 		System.out.println("Introduzca su saldo");
-		double saldo= sc.nextDouble();
-		cli= new Cliente(nombre, dni, saldo,null);
-		banco.anadirCliente(cli);	
+		double saldo = sc.nextDouble();
+		cli = new Cliente(nombre, dni, saldo, null);
+		banco.anadirCliente(cli);
 	}
-	
-	public static void eliminarCliNombre(){
+
+	public static void eliminarCliNombre() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca el nombre del cliente que quieres borar");
 		String nombre = sc.nextLine();
 		banco.eliminarCliente(nombre);
 	}
-	
+
 }
