@@ -51,7 +51,6 @@ public class BolsaDeValores {
 
 	// Actualizar valor acciones
 	public void actualizarValorAcciones() {
-		// listaEmpresas.forEach(empresa-> empresa.actualizarValorAcciones());
 		for (Empresa empresa : listaEmpresas) {
 			empresa.actualizarValorAcciones();
 		}

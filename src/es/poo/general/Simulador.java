@@ -25,7 +25,6 @@ public class Simulador {
 	// Bolsa de Valores
 	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
 
-
 	public static void iniciar() {
 
 		// Agentes de Inversores
@@ -125,45 +124,47 @@ public class Simulador {
 		String nombre = sc.nextLine();
 		banco.eliminarCliente(nombre);
 	}
-	public static void copiaSeguridad(){
-		Cliente cliente= null;
-		String string="prueba serializable";
-		try{
-		    FileOutputStream fs = new FileOutputStream("BolsaDeClientes.txt");//Creamos el archivo
-		    ObjectOutputStream os = new ObjectOutputStream(fs);//Esta clase tiene el método writeObject() que necesitamos
-		   for (Cliente cli : banco.bolsaClientes) {
-		    	cliente=cli;
-		    	os.writeObject(cliente);//El método writeObject() serializa el objeto y lo escribe en el archivo
-		    }
-		    os.close();//Hay que cerrar siempre el archivo
-		  }catch(FileNotFoundException e){
-		    e.printStackTrace();
-		  }catch(IOException e){
-		    e.printStackTrace();
-		  }
-	}
-	public static void restaurarCopia(){
-	banco.bolsaClientes.toArray(banco.array);
-		
-		try{
-			  FileInputStream fis = new FileInputStream("BolsaDeClientes.txt");
-			  ObjectInputStream ois = new ObjectInputStream(fis);
-			  Object aux = ois.readObject();
-			  while (aux!=null)
-			  {
-			      if (aux instanceof Cliente)
-			          System.out.println(aux);  // Se escribe en pantalla el objeto
-			      aux = ois.readObject();
-			  }
-			  ois.close();
-			}catch(FileNotFoundException e){
-			  e.printStackTrace();
-			}catch(IOException e){
-			  e.printStackTrace();
-			}catch(ClassNotFoundException e){
-			  e.printStackTrace();
+
+	public static void copiaSeguridad() {
+		Cliente cliente = null;
+		String string = "prueba serializable";
+		try {
+			FileOutputStream fs = new FileOutputStream("BolsaDeClientes.txt");// Creamos el archivo
+			ObjectOutputStream os = new ObjectOutputStream(fs);// Esta clase tiene el mï¿½todo writeObject() que
+																// necesitamos
+			for (Cliente cli : banco.bolsaClientes) {
+				cliente = cli;
+				os.writeObject(cliente);// El mï¿½todo writeObject() serializa el objeto y lo escribe en el archivo
 			}
-		//cli2.mostrarEstadoClientes();
-		
+			os.close();// Hay que cerrar siempre el archivo
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void restaurarCopia() {
+		banco.bolsaClientes.toArray(banco.array);
+
+		try {
+			FileInputStream fis = new FileInputStream("BolsaDeClientes.txt");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Object aux = ois.readObject();
+			while (aux != null) {
+				if (aux instanceof Cliente)
+					System.out.println(aux); // Se escribe en pantalla el objeto
+				aux = ois.readObject();
+			}
+			ois.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		// cli2.mostrarEstadoClientes();
+
 	}
 }

@@ -58,10 +58,9 @@ public class Empresa {
 	// Actualizar el valor de las acciones
 	public void actualizarValorAcciones() {
 		Random random = new Random();
-		float valorAleatorioPrevio = minValor + random.nextFloat() * (maxValor - minValor);
-		float valorAleatorioActual = minValor + random.nextFloat() * (maxValor - minValor);
+		float valorAleatorioActual = minValor + random.nextFloat() * (maxValor - minValor); //quiero generar esto desde utilidades
 
-		this.valorAccionPrevio = Math.round(valorAleatorioPrevio);
+		this.valorAccionPrevio = valorAccionActual;
 		this.valorAccionActual = Math.round(valorAleatorioActual);
 	}
 
