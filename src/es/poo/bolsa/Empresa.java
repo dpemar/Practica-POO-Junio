@@ -1,10 +1,11 @@
 package es.poo.bolsa;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import es.poo.general.Utilidades;
 
-public class Empresa {
+public class Empresa implements Serializable {
 
 	private String nombreEmpresa;
 	private float valorAccionActual;
@@ -55,6 +56,13 @@ public class Empresa {
 
 	public void setIncremento(int incremento) {
 		this.incremento = incremento;
+	}
+
+	@Override
+	public String toString() {
+		return "Empresa [nombreEmpresa=" + nombreEmpresa + ", valorAccionActual=" + valorAccionActual
+				+ ", valorAccionPrevio=" + valorAccionPrevio + ", incremento=" + incremento + ", minValor=" + minValor
+				+ ", maxValor=" + maxValor + "]";
 	}
 
 	// Actualizar el valor de las acciones

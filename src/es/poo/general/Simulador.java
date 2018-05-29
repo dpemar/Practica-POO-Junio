@@ -104,6 +104,18 @@ public class Simulador {
 		bolsa1.actualizarValorAcciones();
 	}
 
+	// 12.- Realizar copia de seguridad
+	public static void realizarCopiaSeguridadBolsa() {
+		bolsa1.copiaSeguridadBolsa("copiaSeguridadBolsa.txt");
+		System.out.println("\nSerializacion realizada...Compruebe el archivo especifico");
+	}
+
+	// 13.- Restaurar copia de seguridad
+	public static void restaurarCopiaSeguridadBolsa() {
+		bolsa1.restaurarCopiaSeguridadBolsa("copiaSeguridadBolsa.txt");
+		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
+	}
+
 	public static void clienteConDatos() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca su nombre");

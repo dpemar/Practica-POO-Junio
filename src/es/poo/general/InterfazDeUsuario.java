@@ -95,10 +95,12 @@ public class InterfazDeUsuario {
 				Simulador.actualizarValoresAcciones();
 				break;
 			case 12:
-				System.out.println("mostrar 12");
+				System.out.println("12.- Realizar copia de seguridad");
+				Simulador.realizarCopiaSeguridadBolsa();
 				break;
 			case 13:
-				System.out.println("mostrar 13");
+				System.out.println("13.- Restaurar copia de seguridad");
+				Simulador.restaurarCopiaSeguridadBolsa();
 				break;
 			case 14:
 				System.out.println("mostrar 14");
