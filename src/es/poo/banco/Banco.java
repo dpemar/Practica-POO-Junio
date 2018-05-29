@@ -2,11 +2,15 @@ package es.poo.banco;
 
 import java.util.HashSet;
 import java.util.Iterator;
+
+import es.poo.bolsa.Empresa;
+
 import java.io.*;
 
 public class Banco {
 	private String nombreB;
 	public HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
+	private HashSet<Cliente> copiabolsaClientes;
 	public Cliente[] array = new Cliente[bolsaClientes.size()];
 	private AgenteDeInversiones broker = new AgenteDeInversiones();
 
@@ -78,6 +82,56 @@ public class Banco {
 			bolsa.mostrarEstadoClientes();
 		}
 	}
+	
+	
+	// Realizar copia de seguridad
+		public void copiaSeguridadClientes(String path) {
+
+			FileOutputStream fileOut;
+			ObjectOutputStream objectOut;
+
+			try {
+				fileOut = new FileOutputStream(path);
+				objectOut = new ObjectOutputStream(fileOut);
+
+				objectOut.writeObject(bolsaClientes);
+
+				objectOut.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// Restaurar copia de seguridad
+		public void restaurarCopiaSeguridadClientes(String path) {
+
+			FileInputStream fileIn;
+			ObjectInputStream objectIn;
+
+			try {
+				fileIn = new FileInputStream(path);
+				objectIn = new ObjectInputStream(fileIn);
+				bolsaClientes.removeAll(bolsaClientes);
+
+				copiabolsaClientes = (HashSet<Cliente>) objectIn.readObject();
+
+				for (Cliente cliente : bolsaClientes) {
+					bolsaClientes.add(cliente);
+					mostrarClientes();
+				}
+
+				objectIn.close();
+				fileIn.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	
 
 }

@@ -69,11 +69,11 @@ public class InterfazDeUsuario {
 				break;
 			case 5:
 				System.out.println("5.- Realizar copia de seguridad");
-				Simulador.copiaSeguridad();
+				Simulador.realizarCopiaSeguridadCliente();
 				break;
 			case 6:
 				System.out.println("6.- Restaurar copia de seguridad");
-				Simulador.restaurarCopia();
+				Simulador.restaurarCopiaSeguridadCliente();
 				break;
 			case 7:
 				System.out.println("mostrar 7");

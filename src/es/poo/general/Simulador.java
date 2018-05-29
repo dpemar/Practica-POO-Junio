@@ -137,46 +137,15 @@ public class Simulador {
 		banco.eliminarCliente(nombre);
 	}
 
-	public static void copiaSeguridad() {
-		Cliente cliente = null;
-		String string = "prueba serializable";
-		try {
-			FileOutputStream fs = new FileOutputStream("BolsaDeClientes.txt");// Creamos el archivo
-			ObjectOutputStream os = new ObjectOutputStream(fs);// Esta clase tiene el m�todo writeObject() que
-																// necesitamos
-			for (Cliente cli : banco.bolsaClientes) {
-				cliente = cli;
-				os.writeObject(cliente);// El m�todo writeObject() serializa el objeto y lo escribe en el archivo
-			}
-			os.close();// Hay que cerrar siempre el archivo
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	
+	public static void realizarCopiaSeguridadCliente() {
+		banco.copiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");
+		System.out.println("\nSerializacion realizada...Compruebe el archivo especifico");
 	}
 
-	public static void restaurarCopia() {
-		banco.bolsaClientes.toArray(banco.array);
-
-		try {
-			FileInputStream fis = new FileInputStream("BolsaDeClientes.txt");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			Object aux = ois.readObject();
-			while (aux != null) {
-				if (aux instanceof Cliente)
-					System.out.println(aux); // Se escribe en pantalla el objeto
-				aux = ois.readObject();
-			}
-			ois.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		// cli2.mostrarEstadoClientes();
-
+		
+	public static void restaurarCopiaSeguridadCliente() {
+		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
+		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");
 	}
 }
