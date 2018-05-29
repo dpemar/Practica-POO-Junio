@@ -5,9 +5,9 @@ import java.util.Scanner;
 import es.poo.banco.Banco;
 
 public class InterfazDeUsuario {
-	private static Scanner sc;
 
 	public static void mostrarmenu() {
+
 		System.out.println("0.- Salir");
 		System.out.println("----------------- ESTADO --------------");
 		System.out.println("1.- Imprimir estado de los clientes");
@@ -32,42 +32,55 @@ public class InterfazDeUsuario {
 		System.out.println("---------------- BROKER ----------------");
 		System.out.println("17.- Imprimir operaciones pendientes");
 		System.out.println("18.- Ejecutar operaciones pendientes");
-		System.out.println("----------------------------------------");
-		System.out.println("19.- Mostrar menu");
 	}
 
 	public static void seleccion() {
-		sc = new Scanner(System.in);
+
+		Escaner escaner = new Escaner();
 		int numero;
-		Banco banco = new Banco();
+		boolean salir = false;
 		mostrarmenu();
-		while (true) {
-			numero = sc.nextInt();
-			switch(numero){
-			case 0: System.out.println("mostrar 0");
-	        		break;
-			case 1: System.out.println("Imprimir estado de los clientes");
-					Simulador.mostrarClientes();
-					break;
-			case 2: System.out.println("mostrar 2");
-					
-					break;
-			case 3: System.out.println("A�adir cliente");
-					Simulador.clienteConDatos();
-					break;
-			case 4: System.out.println("Eliminar cliente");
-					Simulador.eliminarCliNombre();
-					break;
-			case 5: System.out.println("Realizar copia de seguridad");
-					Simulador.copiaSeguridad();
-					break;
-			case 6: System.out.println("Recuperar copia de seguridad");
-					Simulador.restaurarCopia();
-					break;
-			case 7: System.out.println("mostrar 7");
-					break; 
-			case 8: System.out.println("mostrar 8");
-					break;
+
+		while (!salir) {
+			numero = escaner.leerEntero();
+			switch (numero) {
+			case 0:
+				System.out.println("0.- Salir");
+				System.out.println("Ha salido correctamente de la aplicación");
+				salir = true;
+				break;
+			case 1:
+				System.out.println("1.- Imprimir estado de los clientes");
+				Simulador.mostrarClientes();
+				break;
+			case 2:
+				System.out.println("2.- Imprimir estado de la bolsa");
+				Simulador.mostrarEstadoBolsa();
+				// Simulador.iniciar(); ¿Quieres que aparezca el menu cada vez que pulsemos una
+				// opcion? Habria que poner esto
+				break;
+			case 3:
+				System.out.println("3.- Anadir cliente");
+				Simulador.clienteConDatos();
+				break;
+			case 4:
+				System.out.println("4.- Eliminar cliente");
+				Simulador.eliminarCliNombre();
+				break;
+			case 5:
+				System.out.println("5.- Realizar copia de seguridad");
+				Simulador.copiaSeguridad();
+				break;
+			case 6:
+				System.out.println("6.- Restaurar copia de seguridad");
+				Simulador.restaurarCopia();
+				break;
+			case 7:
+				System.out.println("mostrar 7");
+				break;
+			case 8:
+				System.out.println("mostrar 8");
+				break;
 			case 9:
 				System.out.println("9.- Anadir empresa a la bolsa");
 				Simulador.anadirEmpresa();
@@ -81,23 +94,28 @@ public class InterfazDeUsuario {
 				System.out.println("Actualizados los valores de las acciones");
 				Simulador.actualizarValoresAcciones();
 				break;
-			case 12: System.out.println("mostrar 12");
-					break;
-			case 13: System.out.println("mostrar 13");
-					break;
-			case 14: System.out.println("mostrar 14");
-					break;
-			case 15: System.out.println("mostrar 15");
-					break;
-			case 16: System.out.println("mostrar 16");
-					break;
-			case 17: System.out.println("mostrar 17");
-					break;
-			case 18: System.out.println("mostrar 18");
-					break;
-			case 19: mostrarmenu();
-					break;
-			} 
-		}	
+			case 12:
+				System.out.println("mostrar 12");
+				break;
+			case 13:
+				System.out.println("mostrar 13");
+				break;
+			case 14:
+				System.out.println("mostrar 14");
+				break;
+			case 15:
+				System.out.println("mostrar 15");
+				break;
+			case 16:
+				System.out.println("mostrar 16");
+				break;
+			case 17:
+				System.out.println("mostrar 17");
+				break;
+			case 18:
+				System.out.println("mostrar 18");
+				break;
+			}
+		}
 	}
 }
