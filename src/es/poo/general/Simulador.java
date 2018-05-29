@@ -112,8 +112,8 @@ public class Simulador {
 
 	// 13.- Restaurar copia de seguridad
 	public static void restaurarCopiaSeguridadBolsa() {
-		bolsa1.restaurarCopiaSeguridadBolsa("copiaSeguridadBolsa.txt");
 		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
+		bolsa1.restaurarCopiaSeguridadBolsa("copiaSeguridadBolsa.txt");
 	}
 
 	public static void clienteConDatos() {

@@ -12,6 +12,7 @@ public class BolsaDeValores {
 
 	private String nombreBolsa;
 	private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
+	private HashSet<Empresa> copiaListaEmpresas;
 
 	public BolsaDeValores(String nombreBolsa, HashSet<Empresa> listaEmpresas) {
 		super();
@@ -72,11 +73,8 @@ public class BolsaDeValores {
 			fileOut = new FileOutputStream(path);
 			objectOut = new ObjectOutputStream(fileOut);
 
-			for (Empresa empresa : listaEmpresas) {
-				if (objectOut != null) {
-					objectOut.writeObject(empresa);
-				}
-			}
+			objectOut.writeObject(listaEmpresas);
+
 			objectOut.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -94,12 +92,15 @@ public class BolsaDeValores {
 		try {
 			fileIn = new FileInputStream(path);
 			objectIn = new ObjectInputStream(fileIn);
+			listaEmpresas.removeAll(listaEmpresas);
 
-			for (Empresa empresa : listaEmpresas) {
-				if (objectIn != null) {
-					objectIn.readObject().toString();
-				}
+			copiaListaEmpresas = (HashSet<Empresa>) objectIn.readObject();
+
+			for (Empresa empresa : copiaListaEmpresas) {
+				listaEmpresas.add(empresa);
+				empresa.mostrarEstadoEmpresa();
 			}
+
 			objectIn.close();
 			fileIn.close();
 		} catch (FileNotFoundException e) {
