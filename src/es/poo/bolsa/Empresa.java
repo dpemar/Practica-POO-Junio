@@ -2,6 +2,8 @@ package es.poo.bolsa;
 
 import java.util.Random;
 
+import es.poo.general.Utilidades;
+
 public class Empresa {
 
 	private String nombreEmpresa;
@@ -57,11 +59,8 @@ public class Empresa {
 
 	// Actualizar el valor de las acciones
 	public void actualizarValorAcciones() {
-		Random random = new Random();
-		float valorAleatorioActual = minValor + random.nextFloat() * (maxValor - minValor); //quiero generar esto desde utilidades
-
 		this.valorAccionPrevio = valorAccionActual;
-		this.valorAccionActual = Math.round(valorAleatorioActual);
+		this.valorAccionActual = Math.round(Utilidades.generarNumerosAleatorios());
 	}
 
 	// Mostrar estado empresa
