@@ -1,9 +1,5 @@
 package es.poo.general;
 
-import java.util.Scanner;
-
-import es.poo.banco.Banco;
-
 public class InterfazDeUsuario {
 
 	public static void mostrarmenu() {
@@ -31,33 +27,30 @@ public class InterfazDeUsuario {
 		System.out.println("16.- Solicitar actualizacion de valores");
 		System.out.println("---------------- BROKER ----------------");
 		System.out.println("17.- Imprimir operaciones pendientes");
-		System.out.println("18.- Ejecutar operaciones pendientes");
+		System.out.println("18.- Ejecutar operaciones pendientes\n");
 	}
 
 	public static void seleccion() {
-
 		Escaner escaner = new Escaner();
 		int numero;
-		boolean salir = false;
-		mostrarmenu();
 
-		while (!salir) {
+		do {
+			mostrarmenu();
+			System.out.println("Introduce opcion: ");
 			numero = escaner.leerEntero();
+
 			switch (numero) {
 			case 0:
 				System.out.println("0.- Salir");
 				System.out.println("Ha salido correctamente de la aplicación");
-				salir = true;
 				break;
 			case 1:
 				System.out.println("1.- Imprimir estado de los clientes");
 				Simulador.mostrarClientes();
 				break;
 			case 2:
-				System.out.println("2.- Imprimir estado de la bolsa");
+				System.out.println("2.- Imprimir estado de la bolsa\n");
 				Simulador.mostrarEstadoBolsa();
-				// Simulador.iniciar(); ¿Quieres que aparezca el menu cada vez que pulsemos una
-				// opcion? Habria que poner esto
 				break;
 			case 3:
 				System.out.println("3.- Anadir cliente");
@@ -91,7 +84,6 @@ public class InterfazDeUsuario {
 				break;
 			case 11:
 				System.out.println("11.- Actualizacion de valores");
-				System.out.println("Actualizados los valores de las acciones");
 				Simulador.actualizarValoresAcciones();
 				break;
 			case 12:
@@ -117,7 +109,11 @@ public class InterfazDeUsuario {
 			case 18:
 				System.out.println("mostrar 18");
 				break;
+			default:
+				System.out.println("Opcion introducida no valida");
+				System.out.println("Introduce opcion entre 1-18\n");
+				break;
 			}
-		}
+		} while (numero != 0);
 	}
 }

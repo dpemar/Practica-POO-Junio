@@ -84,6 +84,7 @@ public class BolsaDeValores {
 	}
 
 	// Restaurar copia de seguridad
+	@SuppressWarnings("unchecked")
 	public void restaurarCopiaSeguridadBolsa(String path) {
 
 		FileInputStream fileIn;

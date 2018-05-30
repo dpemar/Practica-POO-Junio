@@ -10,6 +10,14 @@ public class Escaner {
 		return entrada.nextInt();
 	}
 
+	public String leerString() {
+		return entrada.nextLine();
+	}
+
+	public double leerReal() {
+		return entrada.nextDouble();
+	}
+	
 	public float leerFloat() {
 		return entrada.nextFloat();
 	}

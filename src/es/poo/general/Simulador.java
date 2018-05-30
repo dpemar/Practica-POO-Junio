@@ -1,13 +1,6 @@
 package es.poo.general;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashSet;
-import java.util.Scanner;
 
 import es.poo.banco.AgenteDeInversiones;
 import es.poo.banco.Banco;
@@ -41,7 +34,7 @@ public class Simulador {
 		banco.anadirCliente(cliente2);
 		banco.anadirCliente(cliente3);
 		banco.eliminarCliente(cliente3);
-		Banco banco2 = new Banco("Santander", bolsaCli, broker);
+		// Banco banco2 = new Banco("Santander", bolsaCli, broker); no se utiliza!!
 
 		// Empresa
 		Empresa empresa1 = new Empresa("Empresa1", 12, 10);
@@ -73,77 +66,82 @@ public class Simulador {
 
 	// 9. Anadir Empresa a la Bolsa
 	public static void anadirEmpresa() {
-		Scanner sc = new Scanner(System.in);
+		Escaner escaner = new Escaner();
+
 		System.out.println("Nombre empresa: ");
-		String nombreEmpresa = sc.nextLine();
+		String nombreEmpresa = escaner.leerString();
 
 		System.out.println("Valor accion actual: ");
-		Float valorAccionActual = sc.nextFloat();
+		Float valorAccionActual = escaner.leerFloat();
 
 		System.out.println("Valor accion previo: ");
-		Float valorAccionPrevio = sc.nextFloat();
+		Float valorAccionPrevio = escaner.leerFloat();
 
 		Empresa empresaNueva = new Empresa(nombreEmpresa, valorAccionActual, valorAccionPrevio);
 		bolsa1.anadirEmpresa(empresaNueva);
-		System.out.println("Empresa " + nombreEmpresa + " anadida correctamente a la bolsa " + bolsa1.getNombreBolsa());
+		System.out.println(
+				"Empresa " + nombreEmpresa + " anadida correctamente a la bolsa " + bolsa1.getNombreBolsa() + "\n");
 	}
 
 	// 10. Eliminar Empresa de la Bolsa
 	public static void eliminarEmpresa() {
-		Scanner sc = new Scanner(System.in);
+		Escaner escaner = new Escaner();
 
 		System.out.println("Nombre empresa: ");
-		String nombreEmpresa = sc.nextLine();
+		String nombreEmpresa = escaner.leerString();
 
 		bolsa1.eliminarEmpresa(nombreEmpresa);
-		System.out.println("Empresa " + nombreEmpresa + " eliminada correctamente.");
+		System.out.println("Empresa " + nombreEmpresa + " eliminada correctamente\n");
 	}
 
 	// 11. Actualizacion de Valores
 	public static void actualizarValoresAcciones() {
 		bolsa1.actualizarValorAcciones();
+		System.out.println("Actualizados los valores de las acciones\n");
 	}
 
 	// 12.- Realizar copia de seguridad
 	public static void realizarCopiaSeguridadBolsa() {
 		bolsa1.copiaSeguridadBolsa("copiaSeguridadBolsa.txt");
-		System.out.println("\nSerializacion realizada...Compruebe el archivo especifico");
+		System.out.println("Serializacion realizada...Compruebe el archivo especifico\n");
 	}
 
 	// 13.- Restaurar copia de seguridad
 	public static void restaurarCopiaSeguridadBolsa() {
-		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
+		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados\n");
 		bolsa1.restaurarCopiaSeguridadBolsa("copiaSeguridadBolsa.txt");
 	}
 
 	public static void clienteConDatos() {
-		Scanner sc = new Scanner(System.in);
+		Escaner escaner = new Escaner();
+
 		System.out.println("Introduzca su nombre");
-		String nombre = sc.nextLine();
+		String nombre = escaner.leerString();
 
 		System.out.println("Introduzca su dni");
-		String dni = sc.nextLine();
+		String dni = escaner.leerString();
 
 		System.out.println("Introduzca su saldo");
-		double saldo = sc.nextDouble();
+		double saldo = escaner.leerReal();
+
 		cli = new Cliente(nombre, dni, saldo, null);
 		banco.anadirCliente(cli);
 	}
 
 	public static void eliminarCliNombre() {
-		Scanner sc = new Scanner(System.in);
+		Escaner escaner = new Escaner();
+
 		System.out.println("Introduzca el nombre del cliente que quieres borar");
-		String nombre = sc.nextLine();
+		String nombre = escaner.leerString();
+
 		banco.eliminarCliente(nombre);
 	}
 
-	
 	public static void realizarCopiaSeguridadCliente() {
 		banco.copiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");
 		System.out.println("\nSerializacion realizada...Compruebe el archivo especifico");
 	}
 
-		
 	public static void restaurarCopiaSeguridadCliente() {
 		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
 		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");

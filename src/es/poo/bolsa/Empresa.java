@@ -1,12 +1,12 @@
 package es.poo.bolsa;
 
 import java.io.Serializable;
-import java.util.Random;
 
 import es.poo.general.Utilidades;
 
 public class Empresa implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private String nombreEmpresa;
 	private float valorAccionActual;
 	private float valorAccionPrevio;
