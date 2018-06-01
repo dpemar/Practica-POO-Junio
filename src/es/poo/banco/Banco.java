@@ -10,33 +10,34 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import es.poo.bolsa.Empresa;
+import sun.security.ssl.ClientKeyExchangeService;
 
 import java.io.*;
 
 public class Banco {
-	private String nombreB;
-	public HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
-	private HashSet<Cliente> copiaBolsaClientes;
-	public Cliente[] array = new Cliente[bolsaClientes.size()];
-	private AgenteDeInversiones broker = new AgenteDeInversiones();
+	private String nombreBanco;
+	private HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
+	private HashSet<Cliente> copiaBolsaClientes = new HashSet<Cliente>();
+	private Cliente[] array = new Cliente[bolsaClientes.size()];
+	private AgenteDeInversiones broker;
+	private GestorDeInversores gestor;
 
 	public Banco() {
 		super();
 	}
 
-	public Banco(String nombreB, HashSet<Cliente> bolsaClientes, AgenteDeInversiones broker) {
+	public Banco(String nombreBanco, HashSet<Cliente> bolsaClientes, AgenteDeInversiones broker) {
 		super();
-		this.nombreB = nombreB;
+		this.nombreBanco = nombreBanco;
 		this.bolsaClientes = bolsaClientes;
-		this.broker = broker;
 	}
 
-	public String getNombreB() {
-		return nombreB;
+	public String getNombreBanco() {
+		return nombreBanco;
 	}
 
-	public void setNombreB(String nombreB) {
-		this.nombreB = nombreB;
+	public void setNombreBanco(String nombreBanco) {
+		this.nombreBanco = nombreBanco;
 	}
 
 	public HashSet<Cliente> getBolsaClientes() {
@@ -45,14 +46,6 @@ public class Banco {
 
 	public void setBolsaClientes(HashSet<Cliente> bolsaClientes) {
 		this.bolsaClientes = bolsaClientes;
-	}
-
-	public AgenteDeInversiones getBroker() {
-		return broker;
-	}
-
-	public void setBroker(AgenteDeInversiones broker) {
-		this.broker = broker;
 	}
 
 	public void anadirCliente(Cliente cliente) {
@@ -80,7 +73,6 @@ public class Banco {
 		} else {
 			return false;
 		}
-
 	}
 
 	public void mostrarClientes() {
@@ -88,59 +80,76 @@ public class Banco {
 			bolsa.mostrarEstadoClientes();
 		}
 	}
-	
-	
+
+	// Hacer cliente Premium
+	public void hacerClientePremium(String dniCliente) {
+		Cliente clienteEncontrado = null;
+
+		for (Cliente cliente : bolsaClientes) {
+			if (cliente.getDni().equals(dniCliente)) {
+				clienteEncontrado = cliente;
+			}
+		}
+		if (clienteEncontrado != null) {
+			ClientePremium clientePremium = new ClientePremium(clienteEncontrado.getNombre(),
+					clienteEncontrado.getDni(), clienteEncontrado.getSaldo(), clienteEncontrado.getPaqueteDeAcciones(),
+					gestor);
+
+			bolsaClientes.remove(clienteEncontrado);
+			bolsaClientes.add(clientePremium);
+		}
+	}
+
 	// Realizar copia de seguridad
-		public void copiaSeguridadClientes(String path) {
+	public void copiaSeguridadClientes(String path) {
 
-			FileOutputStream fileOut;
-			ObjectOutputStream objectOut;
+		FileOutputStream fileOut;
+		ObjectOutputStream objectOut;
 
-			try {
-				fileOut = new FileOutputStream(path);
-				objectOut = new ObjectOutputStream(fileOut);
+		try {
+			fileOut = new FileOutputStream(path);
+			objectOut = new ObjectOutputStream(fileOut);
 
-				objectOut.writeObject(bolsaClientes);
+			objectOut.writeObject(bolsaClientes);
 
-				objectOut.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			objectOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
 
-		// Restaurar copia de seguridad
-		@SuppressWarnings("unchecked")
-		public void restaurarCopiaSeguridadClientes(String path) {
+	// Restaurar copia de seguridad
+	@SuppressWarnings("unchecked")
+	public void restaurarCopiaSeguridadClientes(String path) {
 
-			FileInputStream fileIn;
-			ObjectInputStream objectIn;
-			Cliente nuevo = null;
+		FileInputStream fileIn;
+		ObjectInputStream objectIn;
+		Cliente nuevo = null;
 
-			try {
-				fileIn = new FileInputStream(path);
-				objectIn = new ObjectInputStream(fileIn);
-				bolsaClientes.removeAll(bolsaClientes);
+		try {
+			fileIn = new FileInputStream(path);
+			objectIn = new ObjectInputStream(fileIn);
+			bolsaClientes.removeAll(bolsaClientes);
 
-				copiaBolsaClientes = (HashSet<Cliente>) objectIn.readObject();
+			copiaBolsaClientes = (HashSet<Cliente>) objectIn.readObject();
 
-				for (Cliente cliente : copiaBolsaClientes) {
-					nuevo = cliente;
-					bolsaClientes.add(nuevo);
-					mostrarClientes();
-				}
-
-				objectIn.close();
-				fileIn.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			for (Cliente cliente : copiaBolsaClientes) {
+				nuevo = cliente;
+				bolsaClientes.add(nuevo);
+				mostrarClientes();
 			}
+
+			objectIn.close();
+			fileIn.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-	
+	}
 
 }

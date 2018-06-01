@@ -3,39 +3,35 @@ package es.poo.banco;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cliente extends Persona implements Serializable{
-	
-	double saldo;
-	ArrayList<PaqueteDeAcciones> paqueteDeAcciones = new ArrayList<PaqueteDeAcciones>();
+public class Cliente extends Persona implements Serializable {
 
-	public Cliente(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> paqueteDeAcciones2) {
+	double saldo;
+	ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones = new ArrayList<PaqueteDeAcciones>();
+
+	public Cliente(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones) {
 		super(nombre, dni);
 		this.saldo = saldo;
-		this.paqueteDeAcciones = paqueteDeAcciones;
+		this.listaPaqueteDeAcciones = listaPaqueteDeAcciones;
 	}
 
 	@Override
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		return super.getNombre();
+		return nombre;
 	}
 
 	@Override
 	public void setNombre(String nombre) {
-		// TODO Auto-generated method stub
-		super.setNombre(nombre);
+		this.nombre = nombre;
 	}
 
 	@Override
 	public String getDni() {
-		// TODO Auto-generated method stub
-		return super.getDni();
+		return dni;
 	}
 
 	@Override
 	public void setDni(String dni) {
-		// TODO Auto-generated method stub
-		super.setDni(dni);
+		this.dni = dni;
 	}
 
 	public double getSaldo() {
@@ -47,11 +43,11 @@ public class Cliente extends Persona implements Serializable{
 	}
 
 	public ArrayList<PaqueteDeAcciones> getPaqueteDeAcciones() {
-		return paqueteDeAcciones;
+		return listaPaqueteDeAcciones;
 	}
 
-	public void setPaqueteDeAcciones(ArrayList<PaqueteDeAcciones> paqueteDeAcciones) {
-		this.paqueteDeAcciones = paqueteDeAcciones;
+	public void setPaqueteDeAcciones(ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones) {
+		this.listaPaqueteDeAcciones = listaPaqueteDeAcciones;
 	}
 
 	public void mostrarEstadoClientes() {
