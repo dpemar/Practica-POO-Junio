@@ -58,6 +58,10 @@ public class Empresa implements Serializable {
 		this.incremento = incremento;
 	}
 
+	public boolean equals(Empresa e) {
+		return super.equals(e);
+	}
+
 	@Override
 	public String toString() {
 		return "Empresa [nombreEmpresa=" + nombreEmpresa + ", valorAccionActual=" + valorAccionActual
@@ -83,17 +87,4 @@ public class Empresa implements Serializable {
 		}
 		System.out.println("-----------------");
 	}
-	// Mostrar estado empresa
-		public void mostrarEstadoEmpresa(Empresa emp) {
-			System.out.println("Nombre empresa: " + emp.nombreEmpresa);
-			System.out.println("Valor accion previo: " + emp.valorAccionPrevio);
-			System.out.println("Valor accion actual: " + emp.valorAccionActual);
-			if (this.valorAccionActual > emp.valorAccionPrevio) {
-				System.out.println("Incrementa: " + emp.getIncremento());
-			} else {
-				System.out.println("Decrementa: " + emp.getIncremento());
-			}
-			System.out.println("-----------------");
-		}
-
 }

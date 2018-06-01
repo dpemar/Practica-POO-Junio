@@ -1,33 +1,54 @@
 package es.poo.banco;
 
 public class PaqueteDeAcciones {
+
 	String nombreEmpresa;
-	int numeroAcciones;
-	double precioTotal;
-	public PaqueteDeAcciones(String nombreEmpresa, int numeroAcciones, double precioTotal) {
+	int numeroTitulos;
+	int valorActualTitulo;
+	float valorTotal;
+
+	public PaqueteDeAcciones(String nombreEmpresa, int numeroTitulos, int valorActualTitulo, float valorTotal) {
 		super();
 		this.nombreEmpresa = nombreEmpresa;
-		this.numeroAcciones = numeroAcciones;
-		this.precioTotal = precioTotal;
+		this.numeroTitulos = numeroTitulos;
+		this.valorActualTitulo = valorActualTitulo;
+		this.valorTotal = valorTotal;
 	}
+
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
 	}
+
 	public void setNombreEmpresa(String nombreEmpresa) {
 		this.nombreEmpresa = nombreEmpresa;
 	}
-	public int getNumeroAcciones() {
-		return numeroAcciones;
+
+	public int getValorActualTitulo() {
+		return valorActualTitulo;
 	}
-	public void setNumeroAcciones(int numeroAcciones) {
-		this.numeroAcciones = numeroAcciones;
+
+	public void setValorActualTitulo(int valorActualTitulo) {
+		this.valorActualTitulo = valorActualTitulo;
 	}
-	public double getPrecioTotal() {
-		return precioTotal;
+
+	public float getValorTotal() {
+		return (numeroTitulos * valorActualTitulo);
 	}
-	public void setPrecioTotal(double precioTotal) {
-		this.precioTotal = precioTotal;//*prcio de cada accion//
+
+	public void setValorTotal(float valorTotal) {
+		this.valorTotal = valorTotal;
 	}
-	
+
+	public void setNumeroTitulos(int numeroTitulos) {
+		this.numeroTitulos = numeroTitulos;
+	}
+
+	public int getNumeroTitulos() {
+		return numeroTitulos;
+	}
+
+	public void setNumeroAcciones(int numeroTitulos) {
+		this.numeroTitulos = numeroTitulos;
+	}
 
 }

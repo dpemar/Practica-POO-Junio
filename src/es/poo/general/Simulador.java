@@ -5,7 +5,6 @@ import java.util.HashSet;
 import es.poo.banco.AgenteDeInversiones;
 import es.poo.banco.Banco;
 import es.poo.banco.Cliente;
-import es.poo.banco.GestorDeInversores;
 import es.poo.bolsa.BolsaDeValores;
 import es.poo.bolsa.Empresa;
 
@@ -18,18 +17,18 @@ public class Simulador {
 	public static HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 	// Bolsa de Valores
 	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
-	// Gestor de Inversores
-	public static GestorDeInversores gestor = new GestorDeInversores();
+	// Agente de Inversiones
+	public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50121232D");
+
 	public static void iniciar() {
 
 		// Agentes de Inversores
-		AgenteDeInversiones broker = new AgenteDeInversiones();
-		
+		AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50122321D");
 
 		// Clientes
-		Cliente cliente1 = new Cliente("nombre", " dni", 150, null);
-		Cliente cliente2 = new Cliente("nombre2", " dn2", 150, null);
-		Cliente cliente3 = new Cliente("nombre3", " dni3", 150, null);
+		Cliente cliente1 = new Cliente("nombre", "dni", 150, null);
+		Cliente cliente2 = new Cliente("nombre2", "dn2", 150, null);
+		Cliente cliente3 = new Cliente("nombre3", "dni3", 150, null);
 
 		// Banco
 		banco = new Banco("Santander", bolsaCli, broker);
@@ -65,6 +64,17 @@ public class Simulador {
 		for (Empresa empresa : listaEmpresas) {
 			empresa.mostrarEstadoEmpresa();
 		}
+	}
+
+	// 7. Mejorar cliente a PREMIUM
+	public static void mejorarClienteAPremium() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Introduce DNI del cliente a mejorar: ");
+		String dniCliente = escaner.leerString();
+
+		banco.hacerClientePremium(dniCliente);
+		System.out.println("Cliente mejorado como ClientePREMIUM");
 	}
 
 	// 9. Anadir Empresa a la Bolsa
@@ -149,8 +159,9 @@ public class Simulador {
 		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
 		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");
 	}
-	public static void solicitudRecomendacion(){
-		System.out.println("La mejor opcion para invertir es:");
-		gestor.recomendacion();
-	}
+
+	// public static void solicitudRecomendacion(){
+	// System.out.println("La mejor opcion para invertir es:");
+	// gestor.recomendacion();
+	// }
 }

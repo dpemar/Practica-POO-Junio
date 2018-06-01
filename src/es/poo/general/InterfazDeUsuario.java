@@ -69,11 +69,12 @@ public class InterfazDeUsuario {
 				Simulador.restaurarCopiaSeguridadCliente();
 				break;
 			case 7:
-				System.out.println("mostrar 7");
+				System.out.println("7.- Mejorar cliente a PREMIUM");
+				Simulador.mejorarClienteAPremium();
 				break;
 			case 8:
 				System.out.println("Solicita recomendacion de inversion");
-				Simulador.solicitudRecomendacion();
+				// Simulador.solicitudRecomendacion();
 				break;
 			case 9:
 				System.out.println("9.- Anadir empresa a la bolsa");
