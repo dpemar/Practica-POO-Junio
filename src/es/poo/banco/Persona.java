@@ -1,10 +1,12 @@
 package es.poo.banco;
 
-public class Persona {
+import java.io.Serializable;
+
+public class Persona implements Serializable{
 	String nombre;
 	String dni;
 	
-	public Persona(String nombre, String dni) {
+	public Persona(String nombre, String dni){
 		super();
 		this.nombre = nombre;
 		this.dni = dni;

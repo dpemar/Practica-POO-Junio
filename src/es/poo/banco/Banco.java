@@ -2,6 +2,12 @@ package es.poo.banco;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import es.poo.bolsa.Empresa;
 
@@ -10,7 +16,7 @@ import java.io.*;
 public class Banco {
 	private String nombreB;
 	public HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
-	private HashSet<Cliente> copiabolsaClientes;
+	private HashSet<Cliente> copiaBolsaClientes;
 	public Cliente[] array = new Cliente[bolsaClientes.size()];
 	private AgenteDeInversiones broker = new AgenteDeInversiones();
 
@@ -105,20 +111,23 @@ public class Banco {
 		}
 
 		// Restaurar copia de seguridad
+		@SuppressWarnings("unchecked")
 		public void restaurarCopiaSeguridadClientes(String path) {
 
 			FileInputStream fileIn;
 			ObjectInputStream objectIn;
+			Cliente nuevo = null;
 
 			try {
 				fileIn = new FileInputStream(path);
 				objectIn = new ObjectInputStream(fileIn);
 				bolsaClientes.removeAll(bolsaClientes);
 
-				copiabolsaClientes = (HashSet<Cliente>) objectIn.readObject();
+				copiaBolsaClientes = (HashSet<Cliente>) objectIn.readObject();
 
-				for (Cliente cliente : bolsaClientes) {
-					bolsaClientes.add(cliente);
+				for (Cliente cliente : copiaBolsaClientes) {
+					nuevo = cliente;
+					bolsaClientes.add(nuevo);
 					mostrarClientes();
 				}
 
