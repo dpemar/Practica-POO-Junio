@@ -104,6 +104,7 @@ public class InterfazDeUsuario {
 				break;
 			case 16:
 				System.out.println("mostrar 16");
+				Simulador.solicitarCompra();
 				break;
 			case 17:
 				System.out.println("mostrar 17");

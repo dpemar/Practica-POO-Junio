@@ -2,6 +2,8 @@ package es.poo.general;
 
 import java.util.HashSet;
 
+import com.sun.corba.se.pept.broker.Broker;
+
 import es.poo.banco.AgenteDeInversiones;
 import es.poo.banco.Banco;
 import es.poo.banco.Cliente;
@@ -18,20 +20,20 @@ public class Simulador {
 	// Bolsa de Valores
 	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
 	// Agente de Inversiones
-	public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50121232D");
-
+	//public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50121232D");
+	public static AgenteDeInversiones broker = new AgenteDeInversiones();
 	public static void iniciar() {
 
 		// Agentes de Inversores
-		AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50122321D");
-
+		//AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50122321D");
+		
 		// Clientes
 		Cliente cliente1 = new Cliente("nombre", "dni", 150, null);
 		Cliente cliente2 = new Cliente("nombre2", "dn2", 150, null);
 		Cliente cliente3 = new Cliente("nombre3", "dni3", 150, null);
 
 		// Banco
-		banco = new Banco("Santander", bolsaCli, broker);
+		banco = new Banco("Santander", bolsaCli, null/*broker*/);
 		banco.anadirCliente(cliente1);
 		banco.anadirCliente(cliente2);
 		banco.anadirCliente(cliente3);
@@ -164,4 +166,7 @@ public class Simulador {
 	// System.out.println("La mejor opcion para invertir es:");
 	// gestor.recomendacion();
 	// }
+	public static void solicitarCompra(){
+		System.out.println(bolsa1.descomponerMensaje());
+	}
 }

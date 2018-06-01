@@ -4,8 +4,8 @@ public class MensajeCompra extends Mensaje {
 
 	private int maxInversion;
 
-	public MensajeCompra(int operacionId, String nombreCliente, String nombreEmpresa, int cantidadMaxima, int maxInversion) {
-		super(operacionId, nombreCliente, nombreEmpresa, cantidadMaxima);
+	public MensajeCompra(int operacionId,String nombreCliente,String nombreEmpresa,int maxInversion) {
+		super(operacionId,nombreCliente,nombreEmpresa);
 		this.maxInversion = maxInversion;
 	}
 
@@ -18,8 +18,9 @@ public class MensajeCompra extends Mensaje {
 	}
 
 	public String mostrarMensajeRespuestaCompra() {
-		return (this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
-				+ this.getMaxInversion());
+		String mensaje= this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
+				+ this.getMaxInversion();
+		return mensaje;
 	}
 
 }

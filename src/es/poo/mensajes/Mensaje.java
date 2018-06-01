@@ -5,13 +5,11 @@ public class Mensaje {
 	private int operacionId;
 	private String nombreCliente;
 	private String nombreEmpresa;
-	private int cantidadMaxima;
 
-	public Mensaje(int operacionId, String nombreCliente, String nombreEmpresa, int cantidadMaxima) {
+	public Mensaje(int operacionId, String nombreCliente, String nombreEmpresa) {
 		this.operacionId = operacionId;
 		this.nombreCliente = nombreCliente;
 		this.nombreEmpresa = nombreEmpresa;
-		this.cantidadMaxima = cantidadMaxima;
 	}
 
 	public int getOperacionId() {
@@ -36,14 +34,6 @@ public class Mensaje {
 
 	public void setNombreEmpresa(String nombreEmpresa) {
 		this.nombreEmpresa = nombreEmpresa;
-	}
-
-	public int getCantidadMaxima() {
-		return cantidadMaxima;
-	}
-
-	public void setCantidadMaxima(int cantidadMaxima) {
-		this.cantidadMaxima = cantidadMaxima;
 	}
 
 }
