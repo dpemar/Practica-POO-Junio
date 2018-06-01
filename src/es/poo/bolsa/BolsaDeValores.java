@@ -1,18 +1,25 @@
 package es.poo.bolsa;
 
+import java.awt.List;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+
+
+//import es.poo.banco.Empresa;
 
 public class BolsaDeValores {
 
 	private String nombreBolsa;
-	private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
+	private static HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 	private HashSet<Empresa> copiaListaEmpresas;
+	private static Empresa aux = null;
 
 	public BolsaDeValores(String nombreBolsa, HashSet<Empresa> listaEmpresas) {
 		super();
@@ -111,6 +118,19 @@ public class BolsaDeValores {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	public Empresa buscarMejorValor(){
+		ArrayList<Empresa> arrayList = new ArrayList<Empresa>(listaEmpresas);
+		Empresa encontrado = null;
+		for(int i=0; i < arrayList.size();i++){
+			
+			if(arrayList.get(i).getValorAccionActual()< arrayList.get(i+1).getValorAccionActual()){
+				encontrado=arrayList.get(i+1);
+			}else{
+				encontrado=arrayList.get(i);
+			}
+		}
+		return encontrado;	
 	}
 
 }

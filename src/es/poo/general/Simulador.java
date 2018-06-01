@@ -5,6 +5,7 @@ import java.util.HashSet;
 import es.poo.banco.AgenteDeInversiones;
 import es.poo.banco.Banco;
 import es.poo.banco.Cliente;
+import es.poo.banco.GestorDeInversores;
 import es.poo.bolsa.BolsaDeValores;
 import es.poo.bolsa.Empresa;
 
@@ -17,11 +18,13 @@ public class Simulador {
 	public static HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 	// Bolsa de Valores
 	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
-
+	// Gestor de Inversores
+	public static GestorDeInversores gestor = new GestorDeInversores();
 	public static void iniciar() {
 
 		// Agentes de Inversores
 		AgenteDeInversiones broker = new AgenteDeInversiones();
+		
 
 		// Clientes
 		Cliente cliente1 = new Cliente("nombre", " dni", 150, null);
@@ -145,5 +148,9 @@ public class Simulador {
 	public static void restaurarCopiaSeguridadCliente() {
 		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
 		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");
+	}
+	public static void solicitudRecomendacion(){
+		System.out.println("La mejor opcion para invertir es:");
+		gestor.recomendacion();
 	}
 }

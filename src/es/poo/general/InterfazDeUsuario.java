@@ -72,7 +72,8 @@ public class InterfazDeUsuario {
 				System.out.println("mostrar 7");
 				break;
 			case 8:
-				System.out.println("mostrar 8");
+				System.out.println("Solicita recomendacion de inversion");
+				Simulador.solicitudRecomendacion();
 				break;
 			case 9:
 				System.out.println("9.- Anadir empresa a la bolsa");
