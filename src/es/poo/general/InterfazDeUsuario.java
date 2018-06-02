@@ -28,6 +28,7 @@ public class InterfazDeUsuario {
 		System.out.println("---------------- BROKER ----------------");
 		System.out.println("17.- Imprimir operaciones pendientes");
 		System.out.println("18.- Ejecutar operaciones pendientes\n");
+		System.out.println("19.- Mostrar menu\n");
 	}
 
 	public static void seleccion() {
@@ -35,7 +36,6 @@ public class InterfazDeUsuario {
 		int numero;
 
 		do {
-			mostrarmenu();
 			System.out.println("Introduce opcion: ");
 			numero = escaner.leerEntero();
 
@@ -112,9 +112,12 @@ public class InterfazDeUsuario {
 			case 18:
 				System.out.println("mostrar 18");
 				break;
+			case 19:
+				mostrarmenu();
+				break;
 			default:
 				System.out.println("Opcion introducida no valida");
-				System.out.println("Introduce opcion entre 1-18\n");
+				System.out.println("Introduce opcion entre 1-19\n");
 				break;
 			}
 		} while (numero != 0);
