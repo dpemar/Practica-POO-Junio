@@ -167,6 +167,9 @@ public class Simulador {
 	// gestor.recomendacion();
 	// }
 	public static void solicitarCompra(){
+		//Añade La peticion a la cola de peticiones pendientes
+		bolsa1.anadirOperacion(broker.CamposSolicitudCompra());
 		System.out.println(bolsa1.descomponerMensaje());
 	}
+	
 }

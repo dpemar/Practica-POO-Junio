@@ -23,6 +23,7 @@ public class BolsaDeValores {
 	private static HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 	private HashSet<Empresa> copiaListaEmpresas;
 	private static Empresa aux = null;
+	private ArrayList<String> operacionesOperaciones = new ArrayList<String>(); 
 
 	public BolsaDeValores(String nombreBolsa, HashSet<Empresa> listaEmpresas) {
 		super();
@@ -134,6 +135,14 @@ public class BolsaDeValores {
 			}
 		}
 		return encontrado;	
+	}
+	public void anadirOperacion(String peticion) {
+		this.operacionesOperaciones.add(peticion);
+	}
+
+	// Eliminar empresa mediante Empresa
+	public void eliminarTodasOperaciones() {
+		this.operacionesOperaciones.removeAll(operacionesOperaciones);
 	}
 	public String descomponerMensaje(){
 		String separador = Pattern.quote("|");
