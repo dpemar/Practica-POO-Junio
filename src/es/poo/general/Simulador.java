@@ -1,39 +1,43 @@
 package es.poo.general;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-
-import com.sun.corba.se.pept.broker.Broker;
-
 import es.poo.banco.AgenteDeInversiones;
 import es.poo.banco.Banco;
 import es.poo.banco.Cliente;
 import es.poo.bolsa.BolsaDeValores;
 import es.poo.bolsa.Empresa;
+import es.poo.mensajes.Mensaje;
 
 public class Simulador {
 
 	static HashSet<Cliente> bolsaCli = new HashSet<Cliente>();
 	private static Cliente cli;
 	private static Banco banco;
+
+	// Lista de Peticiones
+	public static ArrayList<Mensaje> listaPeticiones = new ArrayList<Mensaje>();
 	// Lista de Empresas
 	public static HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 	// Bolsa de Valores
 	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
 	// Agente de Inversiones
-	//public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50121232D");
-	public static AgenteDeInversiones broker = new AgenteDeInversiones();
+	// public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker",
+	// "50121232D");
+	public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker1", "50505050R", listaPeticiones);
+
 	public static void iniciar() {
 
 		// Agentes de Inversores
-		//AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50122321D");
-		
+		// AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50122321D");
+
 		// Clientes
 		Cliente cliente1 = new Cliente("nombre", "dni", 150, null);
 		Cliente cliente2 = new Cliente("nombre2", "dn2", 150, null);
 		Cliente cliente3 = new Cliente("nombre3", "dni3", 150, null);
 
 		// Banco
-		banco = new Banco("Santander", bolsaCli, null/*broker*/);
+		banco = new Banco("Santander", bolsaCli, null/* broker */);
 		banco.anadirCliente(cliente1);
 		banco.anadirCliente(cliente2);
 		banco.anadirCliente(cliente3);
@@ -127,6 +131,32 @@ public class Simulador {
 		bolsa1.restaurarCopiaSeguridadBolsa("copiaSeguridadBolsa.txt");
 	}
 
+	// 14.- Solicitar compra de acciones
+	public static void solicitarCompraDeAcciones() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Dni cliente: ");
+		String dniCliente = escaner.leerString();
+
+		System.out.println("Nombre empresa: ");
+		String nombreEmpresa = escaner.leerString();
+
+		System.out.println("Cantidad maxima a invertir: ");
+		Float cantidadMaxAInvertir = escaner.leerFloat();
+
+		banco.realizarSolicitudCompra(dniCliente, nombreEmpresa, cantidadMaxAInvertir);
+	}
+
+	// 17.- Imprimir operaciones pendientes
+	public static void imprimirOperacionesPendientes() {
+		broker.imprimirOperacionPendientes();
+	}
+
+	// 18.- Ejecutar operacion pendientes
+	public static void ejecutarOperacionesPendientes() {
+		broker.ejecutarOperacionesPendientes(listaEmpresas);
+	}
+
 	public static void clienteConDatos() {
 		Escaner escaner = new Escaner();
 
@@ -137,7 +167,7 @@ public class Simulador {
 		String dni = escaner.leerString();
 
 		System.out.println("Introduzca su saldo");
-		double saldo = escaner.leerReal();
+		float saldo = escaner.leerFloat();
 
 		cli = new Cliente(nombre, dni, saldo, null);
 		banco.anadirCliente(cli);
@@ -166,10 +196,5 @@ public class Simulador {
 	// System.out.println("La mejor opcion para invertir es:");
 	// gestor.recomendacion();
 	// }
-	public static void solicitarCompra(){
-		//Añade La peticion a la cola de peticiones pendientes
-		bolsa1.anadirOperacion(broker.CamposSolicitudCompra());
-		System.out.println(bolsa1.descomponerMensaje());
-	}
-	
+
 }

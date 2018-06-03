@@ -38,7 +38,7 @@ public class Empresa implements Serializable {
 		return valorAccionActual;
 	}
 
-	public void setValorAccionActual(int valorAccionActual) {
+	public void setValorAccionActual(float valorAccionActual) {
 		this.valorAccionActual = valorAccionActual;
 	}
 
@@ -46,7 +46,7 @@ public class Empresa implements Serializable {
 		return valorAccionPrevio;
 	}
 
-	public void setValorAccionPrevio(int valorAccionPrevio) {
+	public void setValorAccionPrevio(float valorAccionPrevio) {
 		this.valorAccionPrevio = valorAccionPrevio;
 	}
 

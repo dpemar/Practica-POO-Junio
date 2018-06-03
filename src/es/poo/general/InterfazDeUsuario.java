@@ -2,7 +2,7 @@ package es.poo.general;
 
 public class InterfazDeUsuario {
 
-	public static void mostrarmenu() {
+	public static void mostrarMenu() {
 
 		System.out.println("0.- Salir");
 		System.out.println("----------------- ESTADO --------------");
@@ -34,7 +34,7 @@ public class InterfazDeUsuario {
 	public static void seleccion() {
 		Escaner escaner = new Escaner();
 		int numero;
-
+		mostrarMenu();
 		do {
 			System.out.println("Introduce opcion: ");
 			numero = escaner.leerEntero();
@@ -97,23 +97,26 @@ public class InterfazDeUsuario {
 				Simulador.restaurarCopiaSeguridadBolsa();
 				break;
 			case 14:
-				System.out.println("mostrar 14");
+				System.out.println("14.- Solicitar compra de acciones");
+				Simulador.solicitarCompraDeAcciones();
 				break;
 			case 15:
 				System.out.println("mostrar 15");
 				break;
 			case 16:
 				System.out.println("mostrar 16");
-				Simulador.solicitarCompra();
 				break;
 			case 17:
-				System.out.println("mostrar 17");
+				System.out.println("17.- Imprimir operaciones pendientes");
+				Simulador.imprimirOperacionesPendientes();
 				break;
 			case 18:
-				System.out.println("mostrar 18");
+				System.out.println("18.- Ejecutar operaciones pendientes");
+				Simulador.ejecutarOperacionesPendientes();
+				// falta actualizar los valores (lo hago luego)
 				break;
 			case 19:
-				mostrarmenu();
+				mostrarMenu();
 				break;
 			default:
 				System.out.println("Opcion introducida no valida");

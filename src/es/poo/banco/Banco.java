@@ -1,5 +1,6 @@
 package es.poo.banco;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.io.FileInputStream;
@@ -10,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import es.poo.bolsa.Empresa;
+import es.poo.mensajes.Mensaje;
 
 import java.io.*;
 
@@ -17,9 +19,10 @@ public class Banco {
 	private String nombreBanco;
 	private HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
 	private HashSet<Cliente> copiaBolsaClientes = new HashSet<Cliente>();
-	private Cliente[] array = new Cliente[bolsaClientes.size()];
-	private AgenteDeInversiones broker;
+	private ArrayList<Mensaje> listaPeticiones = new ArrayList<Mensaje>();
+	private AgenteDeInversiones broker = new AgenteDeInversiones(nombreBanco, nombreBanco, listaPeticiones);
 	private GestorDeInversores gestor;
+	private int operacionId = 0;
 
 	public Banco() {
 		super();
@@ -96,6 +99,31 @@ public class Banco {
 
 			bolsaClientes.remove(clienteEncontrado);
 			bolsaClientes.add(clientePremium);
+		}
+	}
+
+	// Solicitud de Compra
+	public void realizarSolicitudCompra(String dniCliente, String nombreEmpresa, float cantidadMaxAInvertir) {
+		Cliente clienteEncontrado = null;
+
+		// if (!bolsaClientes.contains(dniCliente)) {
+		// System.out.println("Cliente introducido no existe");
+		// } else {
+		for (Cliente cliente : bolsaClientes) {
+			if (cliente.getDni().equals(dniCliente)) {
+				clienteEncontrado = cliente;
+			}
+		}
+		// }
+		if (clienteEncontrado.getSaldo() < cantidadMaxAInvertir) {
+			System.out.println("Cliente con saldo insuficiente");
+		} else {
+			clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() - cantidadMaxAInvertir);
+			bolsaClientes.remove(clienteEncontrado);
+			bolsaClientes.add(clienteEncontrado);
+			operacionId = operacionId + 1;
+			broker.anadirSolicitudCompra(operacionId, clienteEncontrado.getNombre(), nombreEmpresa,
+					cantidadMaxAInvertir);
 		}
 	}
 

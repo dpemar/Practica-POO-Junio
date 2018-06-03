@@ -16,6 +16,12 @@ public class MensajeRespuestaCompra extends MensajeCompra {
 		this.cantidadRestante = cantidadRestante;
 	}
 
+	public MensajeRespuestaCompra(int operacionId, String nombreCliente, String nombreEmpresa, float maxInversion,
+			boolean estaRealizada) {
+		super(operacionId, nombreCliente, nombreEmpresa, maxInversion);
+		this.estaRealizada = estaRealizada;
+	}
+
 	public boolean isEstaRealizada() {
 		return estaRealizada;
 	}
@@ -49,13 +55,13 @@ public class MensajeRespuestaCompra extends MensajeCompra {
 	}
 
 	public String mostrarMensajeRespuestaCompra() {
-		return (this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
-				+ this.getMaxInversion() + "|" + this.isEstaRealizada() + "|" + this.getNumAccionesCompradas() + "|"
-				+ this.getPrecioAccion() + "|" + this.getCantidadRestante());
+		return (this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.isEstaRealizada() + "|"
+				+ this.getNumAccionesCompradas() + "|" + this.getPrecioAccion() + "|" + this.getCantidadRestante());
 	}
+
 	@Override
-	public  String toString() {
-		return estaRealizada + "|"+ numAccionesCompradas + "|" + precioAccion + "|" + cantidadRestante ;
+	public String toString() {
+		return estaRealizada + "|" + numAccionesCompradas + "|" + precioAccion + "|" + cantidadRestante;
 	}
 
 }

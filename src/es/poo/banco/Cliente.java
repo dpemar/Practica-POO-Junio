@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class Cliente extends Persona implements Serializable {
 
-	double saldo;
+	float saldo;
 	ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones = new ArrayList<PaqueteDeAcciones>();
 
-	public Cliente(String nombre, String dni, double saldo, ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones) {
+	public Cliente(String nombre, String dni, float saldo, ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones) {
 		super(nombre, dni);
 		this.saldo = saldo;
 		this.listaPaqueteDeAcciones = listaPaqueteDeAcciones;
@@ -34,11 +34,11 @@ public class Cliente extends Persona implements Serializable {
 		this.dni = dni;
 	}
 
-	public double getSaldo() {
+	public float getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(double saldo) {
+	public void setSaldo(float saldo) {
 		this.saldo = saldo;
 	}
 

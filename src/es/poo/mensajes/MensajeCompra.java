@@ -2,23 +2,23 @@ package es.poo.mensajes;
 
 public class MensajeCompra extends Mensaje {
 
-	private int maxInversion;
+	private float maxInversion;
 
-	public MensajeCompra(int operacionId,String nombreCliente,String nombreEmpresa,int maxInversion) {
-		super(operacionId,nombreCliente,nombreEmpresa);
+	public MensajeCompra(int operacionId, String nombreCliente, String nombreEmpresa, float maxInversion) {
+		super(operacionId, nombreCliente, nombreEmpresa);
 		this.maxInversion = maxInversion;
 	}
 
-	public int getMaxInversion() {
+	public float getMaxInversion() {
 		return maxInversion;
 	}
 
-	public void setMaxInversion(int maxInversion) {
+	public void setMaxInversion(float maxInversion) {
 		this.maxInversion = maxInversion;
 	}
 
 	public String mostrarMensajeRespuestaCompra() {
-		String mensaje= this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
+		String mensaje = this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
 				+ this.getMaxInversion();
 		return mensaje;
 	}
