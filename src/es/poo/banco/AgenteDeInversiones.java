@@ -62,10 +62,10 @@ public class AgenteDeInversiones extends Persona {
 			MensajeCompra mensajeCompra = (MensajeCompra) peticiones;
 			System.out.println(mensajeCompra.mostrarMensajeRespuestaCompra());
 		}		
-		for (Mensaje peticiones : listaPeticionesVenta) {
+		/*for (Mensaje peticiones : listaPeticionesVenta) {
 			MensajeVenta mensajeVenta = (MensajeVenta) peticiones;
 			System.out.println(mensajeVenta.mostrarMensajeRespuestaVenta());
-		}
+		}*/
 	}
 
 
