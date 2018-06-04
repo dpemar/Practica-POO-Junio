@@ -97,29 +97,53 @@ public class AgenteDeInversiones extends Persona {
 			cadenaCompraRespuestaCodificada = bolsa1.intentaOperacion(cadenaCompraCodificada, listaEmpresas);
 			System.out.println("El broker ha recibido la cadena compra codificada");
 
-			String[] partes = cadenaCompraCodificada.split(Pattern.quote("|"));
+			String[] partes = cadenaCompraRespuestaCodificada.split(Pattern.quote("|"));
 			String operacionIdDecodificado = partes[0];
 			String nombreClienteDecodificado = partes[1];
-			String resultadoDecodificado = partes[2];
+			String nombreEmpresaDecodificado = partes[2];
+			String resultadoDecodificado = partes[3];
 
 			Boolean esCorrecto = Boolean.parseBoolean(resultadoDecodificado);
 
-			if (esCorrecto) {
-				String numAccionesCompradas = partes[3];
-				String valorAccion = partes[4];
-				String dineroRestante = partes[5];
+			//if (esCorrecto) {
+				String numAccionesCompradas = partes[4];
+				String valorAccion = partes[5];
+				String dineroRestante = partes[6];
 				System.out.println("Broker ha decodificado correctamente");
-			}
+				
+				System.out.println(cadenaCompraRespuestaCodificada);
+				
+				int numAcciones = Integer.parseInt(numAccionesCompradas);
+				float dineroG= Float.parseFloat(dineroRestante);
+				Cliente clienteEncontrado=null;
+				PaqueteDeAcciones paquete=null;
+				for (Cliente cliente : listaClientes) {
+					if (cliente.getNombre().equals(nombreClienteDecodificado)) {
+						clienteEncontrado = cliente;
+					}
+				}
+				for (PaqueteDeAcciones cliente : clienteEncontrado.listaPaqueteDeAcciones) {
+					if (cliente.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
+						paquete = cliente;
+					}
+				}
+				
+				//paquete=clienteEncontrado.encontrar(mensajeVenta.getNombreEmpresa());
+				paquete.setNumeroTitulos(paquete.getNumeroTitulos() + numAcciones);
+				clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() - dineroG);
+				listaClientes.remove(clienteEncontrado);
+				listaClientes.add(clienteEncontrado);
+			//}
 
 			int operacionId = Integer.parseInt(operacionIdDecodificado);
 
-			if (esCorrecto.equals(false)) {
+			/*if (esCorrecto.equals(false)) {
 				Mensaje mensajeRespuestaCompra = new MensajeRespuestaCompra(operacionId, nombreClienteDecodificado,
 						mensajeCompra.getNombreEmpresa(), mensajeCompra.getMaxInversion(), false);
 				peticionesEjecutar.add(mensajeRespuestaCompra);
 				System.out.println("Operacion compra almacenada");
 			
-			}
+			}*/
 			}else{
 				mensajeVenta = (MensajeVenta) peticiones;
 				String cadenaVentaCodificada;
