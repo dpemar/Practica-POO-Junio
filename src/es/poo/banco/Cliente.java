@@ -52,13 +52,11 @@ public class Cliente extends Persona implements Serializable {
 	public PaqueteDeAcciones encontrar (String nombreEmpresa){
 		PaqueteDeAcciones clienteAccionEncontrado= null;
 		for (PaqueteDeAcciones cliente : listaPaqueteDeAcciones ) {
-			if (cliente.nombreEmpresa==nombreEmpresa) {
+			if (cliente.nombreEmpresa==nombreEmpresa) 
 				clienteAccionEncontrado = cliente;
-			}else{
-				System.out.println("no existe la empresa");
 			}
-		}
 		return clienteAccionEncontrado;
+		
 	}
 
 	

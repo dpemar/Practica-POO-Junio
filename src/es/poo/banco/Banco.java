@@ -136,13 +136,15 @@ public class Banco {
 			for (Cliente cliente : bolsaClientes) {
 				if (cliente.getDni().equals(dniCliente)) {
 					clienteEncontrado = cliente;
+					
 				}
 			}
-			clienteAccionEncontrado=clienteEncontrado.encontrar(nombreEmpresa);
+
+			clienteAccionEncontrado= clienteEncontrado.encontrar(nombreEmpresa);
+			
 			if (clienteAccionEncontrado.getNumeroTitulos() < numAcciones) {
 				System.out.println("Cliente con acciones insuficiente");
 			} else {
-				clienteAccionEncontrado.setNumeroTitulos(clienteEncontrado.getPaqueteDeAcciones().size() - numAcciones);
 				bolsaClientes.remove(clienteEncontrado);
 				bolsaClientes.add(clienteEncontrado);
 				operacionId = operacionId + 1;
