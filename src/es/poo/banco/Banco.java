@@ -145,6 +145,7 @@ public class Banco {
 			if (clienteAccionEncontrado.getNumeroTitulos() < numAcciones) {
 				System.out.println("Cliente con acciones insuficiente");
 			} else {
+				 clienteAccionEncontrado.setNumeroTitulos(clienteAccionEncontrado.getNumeroTitulos() - numAcciones);
 				bolsaClientes.remove(clienteEncontrado);
 				bolsaClientes.add(clienteEncontrado);
 				operacionId = operacionId + 1;
