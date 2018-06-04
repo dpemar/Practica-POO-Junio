@@ -83,7 +83,7 @@ public class BolsaDeValores {
 
 		System.out.println("Bolsa ha terminado de decodificar");
 		System.out.println("---------------------------------");
-		System.out.println("Bolsa realiza la operacion de compra de acciones");
+		System.out.println("Bolsa realiza la operacion de compra de acciones...");
 
 		Empresa empresaEncontrado = null;
 		for (Empresa empresa : listaEmpresas) {
@@ -91,8 +91,7 @@ public class BolsaDeValores {
 				empresaEncontrado = empresa;
 			}
 		}
-		if (empresaEncontrado == null
-				|| (empresaEncontrado.getValorAccionActual() > Float.parseFloat(cantidadMaxAInvertir))) {
+		if (empresaEncontrado == null || (empresaEncontrado.getValorAccionActual() > Float.parseFloat(cantidadMaxAInvertir))) {
 			System.out.println("Empresa que desea invertir no existe o el valor de accion es insuficiente");
 			return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + "false" + "|";
 		} else {
@@ -101,8 +100,7 @@ public class BolsaDeValores {
 			float cantidadMaximaAInvertir = Float.parseFloat(cantidadMaxAInvertir);
 			float resto;
 
-			resto = cantidadMaximaAInvertir / empresaEncontrado.getValorAccionActual()
-					- Math.round(cantidadMaximaAInvertir / empresaEncontrado.getValorAccionActual());
+			resto = cantidadMaximaAInvertir / empresaEncontrado.getValorAccionActual() - Math.round(cantidadMaximaAInvertir / empresaEncontrado.getValorAccionActual());
 
 			numAccionesCompradas = (int) Math.round(cantidadMaximaAInvertir / empresaEncontrado.getValorAccionActual());
 
@@ -110,8 +108,7 @@ public class BolsaDeValores {
 			System.out.println("Compra terminada");
 
 			empresaEncontrado.setValorAccionPrevio(empresaEncontrado.getValorAccionActual());
-			empresaEncontrado.setValorAccionActual(empresaEncontrado.getValorAccionActual()
-					+ (numAccionesCompradas * empresaEncontrado.getValorAccionActual()));
+			empresaEncontrado.setValorAccionActual(empresaEncontrado.getValorAccionActual() + (numAccionesCompradas * empresaEncontrado.getValorAccionActual()));
 
 			for (Empresa empresa : listaEmpresas) {
 				if (empresa.equals(empresaEncontrado)) {
@@ -119,15 +116,13 @@ public class BolsaDeValores {
 					listaEmpresas.add(empresaEncontrado);
 				}
 			}
-			System.out.println("Bolsa ha terminado la operacion compra acciones");
+			System.out.println("Bolsa ha terminado la operacion compra de acciones");
 			System.out.println("--------------");
 			System.out.println("Bolsa envia cadena de texto de respuesta compra al broker");
 
 			return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + "true" + "|" + numAccionesCompradas
 					+ "|" + valorAccion + "|" + dineroRestante + "|";
-
 		}
-
 	}
 
 	// Realizar copia de seguridad
@@ -192,10 +187,6 @@ public class BolsaDeValores {
 			}
 		}
 		return encontrado;
-	}
-
-	public void anadirOperacion(String peticion) {
-		this.operacionesOperaciones.add(peticion);
 	}
 
 	// Eliminar empresa mediante Empresa

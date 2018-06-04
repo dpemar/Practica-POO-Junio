@@ -35,5 +35,11 @@ public class Mensaje {
 	public void setNombreEmpresa(String nombreEmpresa) {
 		this.nombreEmpresa = nombreEmpresa;
 	}
+	
+	public enum tipoOperacion {
+		COMPRA,
+		VENTA,
+		ACTUALIZACION;
+	}
 
 }

@@ -25,6 +25,14 @@ public class AgenteDeInversiones extends Persona {
 		this.peticionesEjecutar = new ArrayList<>();
 	}
 
+	public static ArrayList<Mensaje> getPeticionesEjecutar() {
+		return peticionesEjecutar;
+	}
+
+	public static void setPeticionesEjecutar(ArrayList<Mensaje> peticionesEjecutar) {
+		AgenteDeInversiones.peticionesEjecutar = peticionesEjecutar;
+	}
+
 	public ArrayList<Mensaje> getListaPeticiones() {
 		return listaPeticiones;
 	}
@@ -60,19 +68,13 @@ public class AgenteDeInversiones extends Persona {
 			mensajeCompra.getNombreCliente();
 			mensajeCompra.getNombreEmpresa();
 			mensajeCompra.getMaxInversion();
+
 			cadenaCompraCodificada = mensajeCompra.mostrarMensajeRespuestaCompra();
 			System.out.println("Codificacion cadena terminada");
 			System.out.println(cadenaCompraCodificada);
 
 			cadenaCompraRespuestaCodificada = bolsa1.intentaOperacion(cadenaCompraCodificada, listaEmpresas);
 			System.out.println("El broker ha recibido la cadena compra codificada");
-
-			// String operacionIdDecodificado = "";
-			// String nombreClienteDecodificado = "";
-			// String resultadoDecodificado = "";
-			// String numAccionesCompradas = "";
-			// String valorAccion = "";
-			// String dineroRestante = "";
 
 			String[] partes = cadenaCompraCodificada.split(Pattern.quote("|"));
 			String operacionIdDecodificado = partes[0];
@@ -98,5 +100,4 @@ public class AgenteDeInversiones extends Persona {
 			}
 		}
 	}
-
 }
