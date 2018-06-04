@@ -101,7 +101,8 @@ public class InterfazDeUsuario {
 				Simulador.solicitarCompraDeAcciones();
 				break;
 			case 15:
-				System.out.println("mostrar 15");
+				System.out.println("14.- Solicitar venta de acciones");
+				Simulador.solicitarVentaDeAcciones();
 				break;
 			case 16:
 				System.out.println("mostrar 16");

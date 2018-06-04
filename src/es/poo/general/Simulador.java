@@ -5,6 +5,7 @@ import java.util.HashSet;
 import es.poo.banco.AgenteDeInversiones;
 import es.poo.banco.Banco;
 import es.poo.banco.Cliente;
+import es.poo.banco.PaqueteDeAcciones;
 import es.poo.bolsa.BolsaDeValores;
 import es.poo.bolsa.Empresa;
 import es.poo.mensajes.Mensaje;
@@ -17,6 +18,8 @@ public class Simulador {
 
 	// Lista de Peticiones
 	public static ArrayList<Mensaje> listaPeticiones = new ArrayList<Mensaje>();
+	// Lista de Acciones
+	public static ArrayList<PaqueteDeAcciones> listaAcciones = new ArrayList<PaqueteDeAcciones>();
 	// Lista de Empresas
 	public static HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
 	// Bolsa de Valores
@@ -27,14 +30,14 @@ public class Simulador {
 	public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker1", "50505050R", listaPeticiones);
 
 	public static void iniciar() {
-
-		// Agentes de Inversores
-		// AgenteDeInversiones broker = new AgenteDeInversiones("Broker", "50122321D");
+		//Acciones
+		PaqueteDeAcciones accion1 = new PaqueteDeAcciones("Empresa1", 10000,12);
+		listaAcciones.add(accion1);
 
 		// Clientes
-		Cliente cliente1 = new Cliente("nombre", "dni", 150, null);
-		Cliente cliente2 = new Cliente("nombre2", "dn2", 150, null);
-		Cliente cliente3 = new Cliente("nombre3", "dni3", 150, null);
+		Cliente cliente1 = new Cliente("nombre", "dni", 150, listaAcciones);
+		Cliente cliente2 = new Cliente("nombre2", "dn2", 150, listaAcciones);
+		Cliente cliente3 = new Cliente("nombre3", "dni3", 150, listaAcciones);
 
 		// Banco
 		banco = new Banco("Santander", bolsaCli, null/* broker */);
@@ -146,6 +149,21 @@ public class Simulador {
 
 		banco.realizarSolicitudCompra(dniCliente, nombreEmpresa, cantidadMaxAInvertir);
 	}
+	// 15.- Solicitar venta de acciones
+		public static void solicitarVentaDeAcciones() {
+			Escaner escaner = new Escaner();
+
+			System.out.println("Dni cliente: ");
+			String dniCliente = escaner.leerString();
+
+			System.out.println("Nombre empresa: ");
+			String nombreEmpresa = escaner.leerString();
+
+			System.out.println("Cantidad de acciones para su venta: ");
+			int cantidadAcciones = escaner.leerEntero();
+
+			banco.realizarSolicitudVenta(dniCliente, nombreEmpresa, cantidadAcciones);
+		}
 
 	// 17.- Imprimir operaciones pendientes
 	public static void imprimirOperacionesPendientes() {
