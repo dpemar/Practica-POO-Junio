@@ -124,6 +124,59 @@ public class BolsaDeValores {
 					+ "|" + valorAccion + "|" + dineroRestante + "|";
 		}
 	}
+	// Intentar operacion desde el broker
+		public String intentaOperacionVenta(String cadenaCodificada, HashSet<Empresa> listaEmpresas) {
+
+			boolean esRealizada;
+			float valorAccion;
+			int dineroGanado;
+
+			String[] partes = cadenaCodificada.split(Pattern.quote("|"));
+			String operacionIdDecodificado = partes[0];
+			String nombreClienteDecodificado = partes[1];
+			String nombreEmpresaDecodificado = partes[2];
+			String cantidadAcciones = partes[3];
+
+			System.out.println("Bolsa ha terminado de decodificar");
+			System.out.println("---------------------------------");
+			System.out.println("Bolsa realiza la operacion de venta de acciones");
+
+			Empresa empresaEncontrado = null;
+			for (Empresa empresa : listaEmpresas) {
+				if (empresa.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
+					empresaEncontrado = empresa;
+				}
+			}
+			if (empresaEncontrado == null) {
+				System.out.println("Las acciones de la Empresa que desea vender no existe");
+				return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + "false" + "|";
+			} else {
+				valorAccion = empresaEncontrado.getValorAccionActual();
+				int numAcciones = Integer.parseInt(cantidadAcciones);
+				dineroGanado=(int) (numAcciones * valorAccion);
+
+				System.out.println("Venta terminada");
+
+				empresaEncontrado.setValorAccionPrevio(empresaEncontrado.getValorAccionActual());
+				empresaEncontrado.setValorAccionActual(empresaEncontrado.getValorAccionActual()
+						- (numAcciones * empresaEncontrado.getValorAccionActual()));
+
+				for (Empresa empresa : listaEmpresas) {
+					if (empresa.equals(empresaEncontrado)) {
+						listaEmpresas.remove(empresa);
+						listaEmpresas.add(empresaEncontrado);
+					}
+				}
+				System.out.println("Bolsa ha terminado la operacion venta acciones");
+				System.out.println("--------------");
+				System.out.println("Bolsa envia cadena de texto de respuesta venta al broker");
+
+				return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + "true" + "|" + numAcciones
+						+ "|" + valorAccion + "|" + dineroGanado + "|";
+
+			}
+
+		}
 
 	// Realizar copia de seguridad
 	public void copiaSeguridadBolsa(String path) {

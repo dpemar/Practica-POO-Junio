@@ -49,11 +49,27 @@ public class Cliente extends Persona implements Serializable {
 	public void setPaqueteDeAcciones(ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones) {
 		this.listaPaqueteDeAcciones = listaPaqueteDeAcciones;
 	}
+	public PaqueteDeAcciones encontrar (String nombreEmpresa){
+		PaqueteDeAcciones clienteAccionEncontrado= null;
+		for (PaqueteDeAcciones cliente : listaPaqueteDeAcciones ) {
+			if (cliente.nombreEmpresa==nombreEmpresa) 
+				clienteAccionEncontrado = cliente;
+			}
+		return clienteAccionEncontrado;
+		
+	}
 
+	
 	public void mostrarEstadoClientes() {
+		PaqueteDeAcciones clienteAccionEncontrado= null;
 		System.out.println("Nombre cliente: " + nombre);
 		System.out.println("Dni: " + dni);
 		System.out.println("Saldo actual: " + saldo);
+		for (PaqueteDeAcciones cliente : listaPaqueteDeAcciones ) {
+				clienteAccionEncontrado = cliente;
+				System.out.println("Acciones: " + clienteAccionEncontrado.mostrarAcciones());
+		}
+		
 	}
 
 }
