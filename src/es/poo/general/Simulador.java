@@ -31,7 +31,7 @@ public class Simulador {
 
 	public static void iniciar() {
 		//Acciones
-		PaqueteDeAcciones accion1 = new PaqueteDeAcciones("Empresa1", 10000,12);
+		PaqueteDeAcciones accion1 = new PaqueteDeAcciones("Empresa1", 10000,18);
 		listaAcciones.add(accion1);
 
 		// Clientes
@@ -172,7 +172,7 @@ public class Simulador {
 
 	// 18.- Ejecutar operacion pendientes
 	public static void ejecutarOperacionesPendientes() {
-		broker.ejecutarOperacionesPendientes(listaEmpresas);
+		broker.ejecutarOperacionesPendientes(bolsaCli,listaEmpresas);
 	}
 
 	public static void clienteConDatos() {

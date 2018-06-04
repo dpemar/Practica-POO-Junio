@@ -130,9 +130,6 @@ public class Banco {
 		public void realizarSolicitudVenta(String dniCliente, String nombreEmpresa, int numAcciones) {
 			Cliente clienteEncontrado = null;
 			PaqueteDeAcciones clienteAccionEncontrado= null;
-			// if (!bolsaClientes.contains(dniCliente)) {
-			// System.out.println("Cliente introducido no existe");
-			// } else {
 			for (Cliente cliente : bolsaClientes) {
 				if (cliente.getDni().equals(dniCliente)) {
 					clienteEncontrado = cliente;
@@ -140,19 +137,19 @@ public class Banco {
 				}
 			}
 
-			clienteAccionEncontrado= clienteEncontrado.encontrar(nombreEmpresa);
+			/*clienteAccionEncontrado= clienteEncontrado.encontrar(nombreEmpresa);
 			
 			if (clienteAccionEncontrado.getNumeroTitulos() < numAcciones) {
 				System.out.println("Cliente con acciones insuficiente");
 			} else {
 				 clienteAccionEncontrado.setNumeroTitulos(clienteAccionEncontrado.getNumeroTitulos() - numAcciones);
 				bolsaClientes.remove(clienteEncontrado);
-				bolsaClientes.add(clienteEncontrado);
+				bolsaClientes.add(clienteEncontrado);*/
 				operacionId = operacionId + 1;
 				broker.anadirSolicitudVenta(operacionId, clienteEncontrado.getNombre(), nombreEmpresa,
 						numAcciones);
 			}
-		}
+		//}
 
 	public void actualizarValoresClientes() {
 		

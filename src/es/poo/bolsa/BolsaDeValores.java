@@ -171,7 +171,7 @@ public class BolsaDeValores {
 				System.out.println("--------------");
 				System.out.println("Bolsa envia cadena de texto de respuesta venta al broker");
 
-				return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + "true" + "|" + numAcciones
+				return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + nombreEmpresaDecodificado + "|" + numAcciones+ "|"+ "true" + "|"
 						+ "|" + valorAccion + "|" + dineroGanado + "|";
 
 			}
