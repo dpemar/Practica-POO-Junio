@@ -14,7 +14,7 @@ import es.poo.banco.AgenteDeInversiones;
 
 public class BolsaDeValores {
 	private String nombreBolsa;
-	private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
+	private HashSet<Empresa> listaEmpresas;
 	private HashSet<Empresa> copiaListaEmpresas;
 	private ArrayList<String> operacionesOperaciones = new ArrayList<String>();
 
@@ -30,6 +30,15 @@ public class BolsaDeValores {
 
 	public void setNombreBolsa(String nombreBolsa) {
 		this.nombreBolsa = nombreBolsa;
+	}
+
+	
+	public HashSet<Empresa> getListaEmpresas() {
+		return listaEmpresas;
+	}
+
+	public void setListaEmpresas(HashSet<Empresa> listaEmpresas) {
+		this.listaEmpresas = listaEmpresas;
 	}
 
 	// Añadir empresa

@@ -62,6 +62,14 @@ public class Empresa implements Serializable {
 		return super.equals(e);
 	}
 
+	// Obtener variacion
+	public float obtenerVariacion() {
+		if (valorAccionPrevio == 0) {
+			return 0;
+		}
+		return (((valorAccionActual - valorAccionPrevio) / valorAccionPrevio) * 100);
+	}
+
 	@Override
 	public String toString() {
 		return "Empresa [nombreEmpresa=" + nombreEmpresa + ", valorAccionActual=" + valorAccionActual
@@ -87,7 +95,5 @@ public class Empresa implements Serializable {
 		}
 		System.out.println("-----------------");
 	}
-
-
 
 }

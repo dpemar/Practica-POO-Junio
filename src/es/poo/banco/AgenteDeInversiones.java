@@ -15,8 +15,8 @@ import es.poo.mensajes.MensajeVenta;
 
 public class AgenteDeInversiones extends Persona {
 
-	private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
-	private BolsaDeValores bolsa1 = new BolsaDeValores("bolsa1", listaEmpresas);
+	private HashSet<Empresa> listaEmpresas;
+	private BolsaDeValores bolsa1;
 	private static ArrayList<Mensaje> listaPeticiones;
 	private static ArrayList<Mensaje> listaPeticionesVenta;
 	private static ArrayList<Mensaje> peticionesEjecutar;
@@ -43,15 +43,33 @@ public class AgenteDeInversiones extends Persona {
 		this.listaPeticiones = listaPeticiones;
 	}
 
+	public String mejorInversion() {
+		if (bolsa1.getListaEmpresas().size() == 0) {
+			return "No hay empresas en la bolsa seleccionada";
+		} else {
+			Empresa empresaAux = null;
+			float maxVariacion = -200;
+			for (Empresa empresa : listaEmpresas) {
+				if (empresa.obtenerVariacion() > maxVariacion) {
+					maxVariacion = empresa.obtenerVariacion();
+					empresaAux = empresa;
+				}
+			}
+			System.out.println("Actualización finalizada con éxito");
+			return empresaAux.getNombreEmpresa();
+		}
+	}
+
 	// Anadir solicitud
 	public void anadirSolicitudCompra(int operacionId, String nombreCliente, String nombreEmpresa,
 			float cantidadMaxAInvertir) {
-		MensajeCompra peticionCompra = new MensajeCompra(operacionId, nombreCliente, nombreEmpresa, cantidadMaxAInvertir);
+		MensajeCompra peticionCompra = new MensajeCompra(operacionId, nombreCliente, nombreEmpresa,
+				cantidadMaxAInvertir);
 		listaPeticiones.add(peticionCompra);
 	}
+
 	// Anadir solicitud Venta
-	public void anadirSolicitudVenta(int operacionId, String nombreCliente, String nombreEmpresa,
-			int numeroAcciones) {
+	public void anadirSolicitudVenta(int operacionId, String nombreCliente, String nombreEmpresa, int numeroAcciones) {
 		Mensaje peticionVenta = new MensajeVenta(operacionId, nombreCliente, nombreEmpresa, numeroAcciones);
 		listaPeticiones.add(peticionVenta);
 	}
@@ -61,62 +79,61 @@ public class AgenteDeInversiones extends Persona {
 		for (Mensaje peticiones : listaPeticiones) {
 			MensajeCompra mensajeCompra = null;
 			MensajeVenta mensajeVenta;
-			if(peticiones instanceof MensajeCompra){
+			if (peticiones instanceof MensajeCompra) {
 				mensajeCompra = (MensajeCompra) peticiones;
 				System.out.println(mensajeCompra.mostrarMensajeRespuestaCompra());
-			}else{
+			} else {
 				mensajeVenta = (MensajeVenta) peticiones;
 				System.out.println(mensajeVenta.mostrarMensajeRespuestaVenta());
 			}
-			
-		}		
+
+		}
 
 	}
 
-
 	// Ejecutar operaciones pendientes
-	public void ejecutarOperacionesPendientes(HashSet<Cliente> listaClientes,HashSet<Empresa> listaEmpresas) {
+	public void ejecutarOperacionesPendientes(HashSet<Cliente> listaClientes, HashSet<Empresa> listaEmpresas) {
 		String cadenaCompraRespuestaCodificada = null;
 		MensajeCompra mensajeCompra = null;
 		MensajeVenta mensajeVenta = null;
 
 		for (Mensaje peticiones : listaPeticiones) {
-			if(peticiones instanceof MensajeCompra){
-			mensajeCompra = (MensajeCompra) peticiones;
-			String cadenaCompraCodificada;
+			if (peticiones instanceof MensajeCompra) {
+				mensajeCompra = (MensajeCompra) peticiones;
+				String cadenaCompraCodificada;
 
-			mensajeCompra.getOperacionId();
-			mensajeCompra.getNombreCliente();
-			mensajeCompra.getNombreEmpresa();
-			mensajeCompra.getMaxInversion();
+				mensajeCompra.getOperacionId();
+				mensajeCompra.getNombreCliente();
+				mensajeCompra.getNombreEmpresa();
+				mensajeCompra.getMaxInversion();
 
-			cadenaCompraCodificada = mensajeCompra.mostrarMensajeRespuestaCompra();
-			System.out.println("Codificacion cadena terminada");
-			System.out.println(cadenaCompraCodificada);
+				cadenaCompraCodificada = mensajeCompra.mostrarMensajeRespuestaCompra();
+				System.out.println("Codificacion cadena terminada");
+				System.out.println(cadenaCompraCodificada);
 
-			cadenaCompraRespuestaCodificada = bolsa1.intentaOperacion(cadenaCompraCodificada, listaEmpresas);
-			System.out.println("El broker ha recibido la cadena compra codificada");
+				cadenaCompraRespuestaCodificada = bolsa1.intentaOperacion(cadenaCompraCodificada, listaEmpresas);
+				System.out.println("El broker ha recibido la cadena compra codificada");
 
-			String[] partes = cadenaCompraRespuestaCodificada.split(Pattern.quote("|"));
-			String operacionIdDecodificado = partes[0];
-			String nombreClienteDecodificado = partes[1];
-			String nombreEmpresaDecodificado = partes[2];
-			String resultadoDecodificado = partes[3];
+				String[] partes = cadenaCompraRespuestaCodificada.split(Pattern.quote("|"));
+				String operacionIdDecodificado = partes[0];
+				String nombreClienteDecodificado = partes[1];
+				String nombreEmpresaDecodificado = partes[2];
+				String resultadoDecodificado = partes[3];
 
-			Boolean esCorrecto = Boolean.parseBoolean(resultadoDecodificado);
+				Boolean esCorrecto = Boolean.parseBoolean(resultadoDecodificado);
 
-			//if (esCorrecto) {
+				// if (esCorrecto) {
 				String numAccionesCompradas = partes[4];
 				String valorAccion = partes[5];
 				String dineroRestante = partes[6];
 				System.out.println("Broker ha decodificado correctamente");
-				
+
 				System.out.println(cadenaCompraRespuestaCodificada);
-				
+
 				int numAcciones = Integer.parseInt(numAccionesCompradas);
-				float dineroG= Float.parseFloat(dineroRestante);
-				Cliente clienteEncontrado=null;
-				PaqueteDeAcciones paquete=null;
+				float dineroG = Float.parseFloat(dineroRestante);
+				Cliente clienteEncontrado = null;
+				PaqueteDeAcciones paquete = null;
 				for (Cliente cliente : listaClientes) {
 					if (cliente.getNombre().equals(nombreClienteDecodificado)) {
 						clienteEncontrado = cliente;
@@ -127,24 +144,26 @@ public class AgenteDeInversiones extends Persona {
 						paquete = cliente;
 					}
 				}
-				
-				//paquete=clienteEncontrado.encontrar(mensajeVenta.getNombreEmpresa());
+
+				// paquete=clienteEncontrado.encontrar(mensajeVenta.getNombreEmpresa());
 				paquete.setNumeroTitulos(paquete.getNumeroTitulos() + numAcciones);
 				clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() - dineroG);
 				listaClientes.remove(clienteEncontrado);
 				listaClientes.add(clienteEncontrado);
-			//}
+				// }
 
-			int operacionId = Integer.parseInt(operacionIdDecodificado);
+				int operacionId = Integer.parseInt(operacionIdDecodificado);
 
-			/*if (esCorrecto.equals(false)) {
-				Mensaje mensajeRespuestaCompra = new MensajeRespuestaCompra(operacionId, nombreClienteDecodificado,
-						mensajeCompra.getNombreEmpresa(), mensajeCompra.getMaxInversion(), false);
-				peticionesEjecutar.add(mensajeRespuestaCompra);
-				System.out.println("Operacion compra almacenada");
-			
-			}*/
-			}else{
+				/*
+				 * if (esCorrecto.equals(false)) { Mensaje mensajeRespuestaCompra = new
+				 * MensajeRespuestaCompra(operacionId, nombreClienteDecodificado,
+				 * mensajeCompra.getNombreEmpresa(), mensajeCompra.getMaxInversion(), false);
+				 * peticionesEjecutar.add(mensajeRespuestaCompra);
+				 * System.out.println("Operacion compra almacenada");
+				 * 
+				 * }
+				 */
+			} else {
 				mensajeVenta = (MensajeVenta) peticiones;
 				String cadenaVentaCodificada;
 
@@ -164,97 +183,98 @@ public class AgenteDeInversiones extends Persona {
 				String operacionIdDecodificado = partes[0];
 				String nombreClienteDecodificado = partes[1];
 				String nombreEmpresaDecodificado = partes[2];
-				String numAccionesDecodificado=partes[3];
+				String numAccionesDecodificado = partes[3];
 				String booDecodificado = partes[4];
 
 				Boolean esCorrecto = Boolean.parseBoolean(booDecodificado);
 
-				//if (esCorrecto) {
-				
-					String valorAccion = partes[5];
-					String dineroGanado = partes[6];
-					System.out.println("Broker ha decodificado correctamente");
-					System.out.println(cadenaCompraRespuestaCodificada);
-					int numAcciones = Integer.parseInt(numAccionesDecodificado);
-					float dineroG= Float.parseFloat(dineroGanado);
-					Cliente clienteEncontrado=null;
-					PaqueteDeAcciones paquete=null;
-					for (Cliente cliente : listaClientes) {
-						if (cliente.getNombre().equals(nombreClienteDecodificado)) {
-							clienteEncontrado = cliente;
-						}
+				// if (esCorrecto) {
+
+				String valorAccion = partes[5];
+				String dineroGanado = partes[6];
+				System.out.println("Broker ha decodificado correctamente");
+				System.out.println(cadenaCompraRespuestaCodificada);
+				int numAcciones = Integer.parseInt(numAccionesDecodificado);
+				float dineroG = Float.parseFloat(dineroGanado);
+				Cliente clienteEncontrado = null;
+				PaqueteDeAcciones paquete = null;
+				for (Cliente cliente : listaClientes) {
+					if (cliente.getNombre().equals(nombreClienteDecodificado)) {
+						clienteEncontrado = cliente;
 					}
-					for (PaqueteDeAcciones cliente : clienteEncontrado.listaPaqueteDeAcciones) {
-						if (cliente.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
-							paquete = cliente;
-						}
+				}
+				for (PaqueteDeAcciones cliente : clienteEncontrado.listaPaqueteDeAcciones) {
+					if (cliente.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
+						paquete = cliente;
 					}
-					
-					//paquete=clienteEncontrado.encontrar(mensajeVenta.getNombreEmpresa());
-					System.out.println(paquete.mostrarAcciones());
-					paquete.setNumeroTitulos(paquete.getNumeroTitulos() - numAcciones);
-					clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() + dineroG);
-					listaClientes.remove(clienteEncontrado);
-					listaClientes.add(clienteEncontrado);
-					
-				//}
-				
+				}
+
+				// paquete=clienteEncontrado.encontrar(mensajeVenta.getNombreEmpresa());
+				System.out.println(paquete.mostrarAcciones());
+				paquete.setNumeroTitulos(paquete.getNumeroTitulos() - numAcciones);
+				clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() + dineroG);
+				listaClientes.remove(clienteEncontrado);
+				listaClientes.add(clienteEncontrado);
+
+				// }
+
 				int operacionId = Integer.parseInt(operacionIdDecodificado);
 
-				/*if (esCorrecto.equals(false)) {
-					Mensaje mensajeRespuestaCompra = new MensajeRespuestaCompra(operacionId, nombreClienteDecodificado,
-							mensajeVenta.getNombreEmpresa(), mensajeVenta.getNumAcciones(), false);
-					peticionesEjecutar.add(mensajeRespuestaCompra);
-					System.out.println("Operacion compra almacenada");
-				
-				}*/
-				
-				
+				/*
+				 * if (esCorrecto.equals(false)) { Mensaje mensajeRespuestaCompra = new
+				 * MensajeRespuestaCompra(operacionId, nombreClienteDecodificado,
+				 * mensajeVenta.getNombreEmpresa(), mensajeVenta.getNumAcciones(), false);
+				 * peticionesEjecutar.add(mensajeRespuestaCompra);
+				 * System.out.println("Operacion compra almacenada");
+				 * 
+				 * }
+				 */
+
 			}
 		}
 	}
+
 	// Ejecutar operaciones pendientes venta
-		public void ejecutarOperacionesPendientesVenta(HashSet<Cliente> listaClientes,HashSet<Empresa> listaEmpresas) {
-			String cadenaVentaRespuestaCodificada = null;
+	public void ejecutarOperacionesPendientesVenta(HashSet<Cliente> listaClientes, HashSet<Empresa> listaEmpresas) {
+		String cadenaVentaRespuestaCodificada = null;
 
-			for (Mensaje peticiones : listaPeticionesVenta) {
-				MensajeVenta mensajeVenta = (MensajeVenta) peticiones;
-				String cadenaVentaCodificada;
+		for (Mensaje peticiones : listaPeticionesVenta) {
+			MensajeVenta mensajeVenta = (MensajeVenta) peticiones;
+			String cadenaVentaCodificada;
 
-				mensajeVenta.getOperacionId();
-				mensajeVenta.getNombreCliente();
-				mensajeVenta.getNombreEmpresa();
-				mensajeVenta.getNumAcciones();
-				cadenaVentaCodificada = mensajeVenta.mostrarMensajeRespuestaVenta();
-				System.out.println("Codificacion cadena terminada");
-				System.out.println(cadenaVentaCodificada);
+			mensajeVenta.getOperacionId();
+			mensajeVenta.getNombreCliente();
+			mensajeVenta.getNombreEmpresa();
+			mensajeVenta.getNumAcciones();
+			cadenaVentaCodificada = mensajeVenta.mostrarMensajeRespuestaVenta();
+			System.out.println("Codificacion cadena terminada");
+			System.out.println(cadenaVentaCodificada);
 
-				cadenaVentaRespuestaCodificada = bolsa1.intentaOperacionVenta(cadenaVentaCodificada, listaEmpresas);
-				System.out.println("El broker ha recibido la cadena venta codificada");
+			cadenaVentaRespuestaCodificada = bolsa1.intentaOperacionVenta(cadenaVentaCodificada, listaEmpresas);
+			System.out.println("El broker ha recibido la cadena venta codificada");
 
+			String[] partes = cadenaVentaCodificada.split(Pattern.quote("|"));
+			String operacionIdDecodificado = partes[0];
+			String nombreClienteDecodificado = partes[1];
+			String resultadoDecodificado = partes[2];
 
-				String[] partes = cadenaVentaCodificada.split(Pattern.quote("|"));
-				String operacionIdDecodificado = partes[0];
-				String nombreClienteDecodificado = partes[1];
-				String resultadoDecodificado = partes[2];
+			Boolean esCorrecto = Boolean.parseBoolean(resultadoDecodificado);
 
-				Boolean esCorrecto = Boolean.parseBoolean(resultadoDecodificado);
+			if (esCorrecto) {
+				String valorAccion = partes[3];
+				String dineroGanado = partes[4];
+				System.out.println("Broker ha decodificado correctamente");
+			}
 
-				if (esCorrecto) {
-					String valorAccion = partes[3];
-					String dineroGanado = partes[4];
-					System.out.println("Broker ha decodificado correctamente");
-				}
+			int operacionId = Integer.parseInt(operacionIdDecodificado);
 
-				int operacionId = Integer.parseInt(operacionIdDecodificado);
-
-				if (esCorrecto.equals(false)) {
-					Mensaje mensajeRespuestaCompra = new MensajeRespuestaCompra(operacionId, nombreClienteDecodificado,
-							mensajeVenta.getNombreEmpresa(), mensajeVenta.getNumAcciones(), false);
-					peticionesEjecutar.add(mensajeRespuestaCompra);
-					System.out.println("Operacion compra almacenada");
-				}
+			if (esCorrecto.equals(false)) {
+				Mensaje mensajeRespuestaCompra = new MensajeRespuestaCompra(operacionId, nombreClienteDecodificado,
+						mensajeVenta.getNombreEmpresa(), mensajeVenta.getNumAcciones(), false);
+				peticionesEjecutar.add(mensajeRespuestaCompra);
+				System.out.println("Operacion compra almacenada");
 			}
 		}
-		
+	}
+
 }

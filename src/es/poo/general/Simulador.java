@@ -25,13 +25,11 @@ public class Simulador {
 	// Bolsa de Valores
 	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
 	// Agente de Inversiones
-	// public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker",
-	// "50121232D");
 	public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker1", "50505050R", listaPeticiones);
 
 	public static void iniciar() {
-		//Acciones
-		PaqueteDeAcciones accion1 = new PaqueteDeAcciones("Empresa1", 10000,18);
+		// Acciones
+		PaqueteDeAcciones accion1 = new PaqueteDeAcciones("Empresa1", 10000, 18);
 		listaAcciones.add(accion1);
 
 		// Clientes
@@ -84,6 +82,16 @@ public class Simulador {
 
 		banco.hacerClientePremium(dniCliente);
 		System.out.println("Cliente mejorado como ClientePREMIUM");
+	}
+
+	// 8.- Solicita recomendacion de inversion
+	public static void recomendacionInversion() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Introduce DNI del cliente a mejorar: ");
+		String dniCliente = escaner.leerString();
+
+		banco.recomendacionInversion(dniCliente);
 	}
 
 	// 9. Anadir Empresa a la Bolsa
@@ -149,21 +157,22 @@ public class Simulador {
 
 		banco.realizarSolicitudCompra(dniCliente, nombreEmpresa, cantidadMaxAInvertir);
 	}
+
 	// 15.- Solicitar venta de acciones
-		public static void solicitarVentaDeAcciones() {
-			Escaner escaner = new Escaner();
+	public static void solicitarVentaDeAcciones() {
+		Escaner escaner = new Escaner();
 
-			System.out.println("Dni cliente: ");
-			String dniCliente = escaner.leerString();
+		System.out.println("Dni cliente: ");
+		String dniCliente = escaner.leerString();
 
-			System.out.println("Nombre empresa: ");
-			String nombreEmpresa = escaner.leerString();
+		System.out.println("Nombre empresa: ");
+		String nombreEmpresa = escaner.leerString();
 
-			System.out.println("Cantidad de acciones para su venta: ");
-			int cantidadAcciones = escaner.leerEntero();
+		System.out.println("Cantidad de acciones para su venta: ");
+		int cantidadAcciones = escaner.leerEntero();
 
-			banco.realizarSolicitudVenta(dniCliente, nombreEmpresa, cantidadAcciones);
-		}
+		banco.realizarSolicitudVenta(dniCliente, nombreEmpresa, cantidadAcciones);
+	}
 
 	// 17.- Imprimir operaciones pendientes
 	public static void imprimirOperacionesPendientes() {
@@ -172,7 +181,7 @@ public class Simulador {
 
 	// 18.- Ejecutar operacion pendientes
 	public static void ejecutarOperacionesPendientes() {
-		broker.ejecutarOperacionesPendientes(bolsaCli,listaEmpresas);
+		broker.ejecutarOperacionesPendientes(bolsaCli, listaEmpresas);
 	}
 
 	public static void clienteConDatos() {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Cliente extends Persona implements Serializable {
 
 	float saldo;
+	boolean esPremium;
 	ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones = new ArrayList<PaqueteDeAcciones>();
 
 	public Cliente(String nombre, String dni, float saldo, ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones) {
@@ -13,6 +14,18 @@ public class Cliente extends Persona implements Serializable {
 		this.saldo = saldo;
 		this.listaPaqueteDeAcciones = listaPaqueteDeAcciones;
 	}
+	
+	public Cliente(String nombre, String dni, float saldo) {
+		super(nombre,dni);
+		this.saldo = saldo;
+	}
+	
+	public Cliente(String nombre, String dni, float saldo, boolean esPremium, ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones) {
+        super(nombre, dni);
+        this.saldo = saldo;
+        this.esPremium = esPremium;
+        this.listaPaqueteDeAcciones = listaPaqueteDeAcciones;
+    }
 
 	@Override
 	public String getNombre() {
@@ -42,6 +55,14 @@ public class Cliente extends Persona implements Serializable {
 		this.saldo = saldo;
 	}
 
+	public boolean isEsPremium() {
+		return esPremium;
+	}
+
+	public void setEsPremium(boolean esPremium) {
+		this.esPremium = esPremium;
+	}
+	
 	public ArrayList<PaqueteDeAcciones> getPaqueteDeAcciones() {
 		return listaPaqueteDeAcciones;
 	}
