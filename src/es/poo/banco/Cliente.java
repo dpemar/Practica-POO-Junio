@@ -59,7 +59,6 @@ public class Cliente extends Persona implements Serializable {
 		
 	}
 
-	
 	public void mostrarEstadoClientes() {
 		PaqueteDeAcciones clienteAccionEncontrado= null;
 		System.out.println("Nombre cliente: " + nombre);
@@ -71,5 +70,6 @@ public class Cliente extends Persona implements Serializable {
 		}
 		
 	}
+
 
 }

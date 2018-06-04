@@ -63,4 +63,5 @@ public class PaqueteDeAcciones  {
 		return (this.getNombreEmpresa() + "|" + this.getNumeroTitulos() + "|" + this.getValorTotal());
 	}
 
+
 }
