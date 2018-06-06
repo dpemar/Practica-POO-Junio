@@ -15,7 +15,7 @@ public class MensajeVenta extends Mensaje {
 		this.numAcciones = numAcciones;
 	}
 
-	public String mostrarMensajeRespuestaVenta() {
+	public String codificarMensaje() {
 		String mensaje = this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
 				+ getNumAcciones();
 		return mensaje;

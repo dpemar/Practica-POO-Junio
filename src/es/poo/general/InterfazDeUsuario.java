@@ -73,8 +73,8 @@ public class InterfazDeUsuario {
 				Simulador.mejorarClienteAPremium();
 				break;
 			case 8:
-				System.out.println("8.- Solicita recomendacion de inversion");
-				Simulador.recomendacionInversion();
+				System.out.println("Solicita recomendacion de inversion");
+				// Simulador.solicitudRecomendacion();
 				break;
 			case 9:
 				System.out.println("9.- Anadir empresa a la bolsa");
@@ -101,7 +101,7 @@ public class InterfazDeUsuario {
 				Simulador.solicitarCompraDeAcciones();
 				break;
 			case 15:
-				System.out.println("14.- Solicitar venta de acciones");
+				System.out.println("15.- Solicitar venta de acciones");
 				Simulador.solicitarVentaDeAcciones();
 				break;
 			case 16:

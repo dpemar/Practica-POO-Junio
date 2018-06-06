@@ -30,7 +30,7 @@ public class MensajeRespuestaVenta extends MensajeVenta{
 		this.cantidadGanada = cantidadGanada;
 	}
 
-	public String mostrarMensajeRespuestaVenta() {
+	public String codificarMensaje() {
 		return (this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.isEstaRealizada() + "|" + this.getPrecioAccion() + "|" + this.getCantidadGanada());
 	}
 }

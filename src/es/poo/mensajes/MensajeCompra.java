@@ -18,7 +18,7 @@ public class MensajeCompra extends Mensaje {
 		this.maxInversion = maxInversion;
 	}
 
-	public String mostrarMensajeRespuestaCompra() {
+	public String codificarMensaje() {
 		String mensaje = this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
 				+ this.getMaxInversion();
 		return mensaje;

@@ -4,24 +4,19 @@ import java.util.ArrayList;
 
 public class ClientePremium extends Cliente {
 
-	private String gestor;
+	private GestorDeInversores gestor;
 
 	public ClientePremium(String nombre, String dni, float saldo, ArrayList<PaqueteDeAcciones> listaPaqueteDeAcciones,
-			String gestor) {
+			GestorDeInversores gestor) {
 		super(nombre, dni, saldo, listaPaqueteDeAcciones);
 		this.gestor = gestor;
 	}
 
-	public ClientePremium(Cliente cliente, String gestor) {
-        super(cliente.nombre, cliente.dni, cliente.saldo, true, cliente.getPaqueteDeAcciones());
-        this.gestor = gestor;
-    }
-	
-	public String getGestor() {
+	public GestorDeInversores getGestor() {
 		return gestor;
 	}
 
-	public void setGestor(String gestor) {
+	public void setGestor(GestorDeInversores gestor) {
 		this.gestor = gestor;
 	}
 

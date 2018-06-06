@@ -8,7 +8,7 @@ public class MensajeRespuestaCompra extends MensajeCompra {
 	private int cantidadRestante;
 
 	public MensajeRespuestaCompra(int operacionId, String nombreCliente, String nombreEmpresa, int cantidadMaxima,
-			int maxInversion, boolean estaRealizada, int numAccionesCompradas, int precioAccion, int cantidadRestante) {
+			float maxInversion, boolean estaRealizada, int numAccionesCompradas, int precioAccion, int cantidadRestante) {
 		super(operacionId, nombreCliente, nombreEmpresa, maxInversion);
 		this.estaRealizada = estaRealizada;
 		this.numAccionesCompradas = numAccionesCompradas;
@@ -54,14 +54,10 @@ public class MensajeRespuestaCompra extends MensajeCompra {
 		this.cantidadRestante = cantidadRestante;
 	}
 
-	public String mostrarMensajeRespuestaCompra() {
+	public String codificarMensaje() {
 		return (this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.isEstaRealizada() + "|"
 				+ this.getNumAccionesCompradas() + "|" + this.getPrecioAccion() + "|" + this.getCantidadRestante());
 	}
 
-	@Override
-	public String toString() {
-		return estaRealizada + "|" + numAccionesCompradas + "|" + precioAccion + "|" + cantidadRestante;
-	}
 
 }

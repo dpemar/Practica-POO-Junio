@@ -3,7 +3,7 @@ package es.poo.banco;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-
+import java.util.regex.Pattern;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import es.poo.bolsa.BolsaDeValores;
 import es.poo.bolsa.Empresa;
 import es.poo.mensajes.Mensaje;
 
@@ -18,11 +19,11 @@ import java.io.*;
 
 public class Banco {
 	private String nombreBanco;
-	private HashSet<Cliente> bolsaClientes;
+	private HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
 	private HashSet<Cliente> copiaBolsaClientes = new HashSet<Cliente>();
-	private ArrayList<Mensaje> listaPeticiones;
-	private AgenteDeInversiones broker;
-	private AgenteDeInversiones gestor;
+	private ArrayList<Mensaje> listaPeticiones = new ArrayList<Mensaje>();
+	private AgenteDeInversiones broker = new AgenteDeInversiones(nombreBanco, nombreBanco, listaPeticiones);
+	private GestorDeInversores gestor;
 	private int operacionId = 0;
 
 	public Banco() {
@@ -94,87 +95,50 @@ public class Banco {
 			}
 		}
 		if (clienteEncontrado != null) {
-			Cliente clientePremium = new ClientePremium(clienteEncontrado.getNombre(), clienteEncontrado.getDni(),
-					clienteEncontrado.getSaldo(), clienteEncontrado.getPaqueteDeAcciones(), this.broker.getNombre());
+			ClientePremium clientePremium = new ClientePremium(clienteEncontrado.getNombre(),
+					clienteEncontrado.getDni(), clienteEncontrado.getSaldo(), clienteEncontrado.getPaqueteDeAcciones(),
+					gestor);
 
 			bolsaClientes.remove(clienteEncontrado);
 			bolsaClientes.add(clientePremium);
 		}
 	}
 
-	// Recomendacion de inversion
-	public void recomendacionInversion(String dniCliente) {
-		Cliente clienteRecomendado = new Cliente("nombre", dniCliente, 150);
-		boolean clienteEncontrado = false;
-
-		if (bolsaClientes.contains(clienteRecomendado)) {
-
-			Cliente clienteAux = null;
-			for (Cliente cliente : bolsaClientes) {
-				if (cliente.equals(clienteRecomendado)) {
-					clienteAux = cliente;
-					clienteEncontrado = true;
-				}
-			}
-			if (!clienteAux.isEsPremium()) {
-				System.out.println("Cliente no Premium");
-			} else {
-				String gestorRecomendacion = gestor.mejorInversion();
-			}
-		} else {
-			System.out.println("Cliente no existe");
-		}
-
-	}
-
 	// Solicitud de Compra
-	public void realizarSolicitudCompra(String dniCliente, String nombreEmpresa, float cantidadMaxAInvertir) {
+	public void realizarSolicitudCompra(String dniCliente, String nombreEmpresa,float cantidadMaxAInvertir) {
 		Cliente clienteEncontrado = null;
-
 		for (Cliente cliente : bolsaClientes) {
 			if (cliente.getDni().equals(dniCliente)) {
 				clienteEncontrado = cliente;
 			}
 		}
-		// }
-		if (clienteEncontrado.getSaldo() < cantidadMaxAInvertir) {
-			System.out.println("Cliente con saldo insuficiente");
-		} else {
-			clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() - cantidadMaxAInvertir);
-			bolsaClientes.remove(clienteEncontrado);
-			bolsaClientes.add(clienteEncontrado);
+		
 			operacionId = operacionId + 1;
 			broker.anadirSolicitudCompra(operacionId, clienteEncontrado.getNombre(), nombreEmpresa,
 					cantidadMaxAInvertir);
-
-		}
+			
 	}
-
 	// Solicitud de venta
-	public void realizarSolicitudVenta(String dniCliente, String nombreEmpresa, int numAcciones) {
-		Cliente clienteEncontrado = null;
-		PaqueteDeAcciones clienteAccionEncontrado = null;
-		for (Cliente cliente : bolsaClientes) {
-			if (cliente.getDni().equals(dniCliente)) {
-				clienteEncontrado = cliente;
-
+		public void realizarSolicitudVenta(String dniCliente, String nombreEmpresa, int numAcciones) {
+			Cliente clienteEncontrado = null;
+			PaqueteDeAcciones clienteAccionEncontrado= null;
+			for (Cliente cliente : bolsaClientes) {
+				if (cliente.getDni().equals(dniCliente)) {
+					clienteEncontrado = cliente;
+					
+				}
 			}
+				operacionId = operacionId + 1;
+				broker.anadirSolicitudVenta(operacionId, clienteEncontrado.getNombre(), nombreEmpresa,
+						numAcciones);
 		}
+		
 
-		/*
-		 * clienteAccionEncontrado= clienteEncontrado.encontrar(nombreEmpresa);
-		 * 
-		 * if (clienteAccionEncontrado.getNumeroTitulos() < numAcciones) {
-		 * System.out.println("Cliente con acciones insuficiente"); } else {
-		 * clienteAccionEncontrado.setNumeroTitulos(clienteAccionEncontrado.
-		 * getNumeroTitulos() - numAcciones); bolsaClientes.remove(clienteEncontrado);
-		 * bolsaClientes.add(clienteEncontrado);
-		 */
-		operacionId = operacionId + 1;
-		broker.anadirSolicitudVenta(operacionId, clienteEncontrado.getNombre(), nombreEmpresa, numAcciones);
+	public void actualizarValoresClientes() {
+		
+		
 	}
-	// }
-
+	
 	// Realizar copia de seguridad
 	public void copiaSeguridadClientes(String path) {
 
@@ -225,6 +189,77 @@ public class Banco {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void ejecutardorDeOperacionesPendientes(BolsaDeValores bolsa1){
+		String cadenaFinal = null;
+		boolean resultado;
+		Integer inver;
+		Cliente clienteEncontrado = null;
+		PaqueteDeAcciones paquete = null;
+		cadenaFinal=broker.ejecutarOperacionesPendientes(bolsa1);
+		String[] partes = cadenaFinal.split(Pattern.quote("|"));
+		String operacionIdDecodificado = partes[0];
+		String nombreClienteDecodificado = partes[1];
+		String nombreEmpresaDecodificado = partes[2];
+		String resultadoDecodificado = partes[3];
+		try {
+        	inver = Integer.parseInt(resultadoDecodificado);
+            resultado = true;
+        } catch (NumberFormatException excepcion2) {
+            resultado = false;
+        }
+		if(resultado = true){
+			System.out.println("Es una venta");
+				String valorAccion = partes[5];
+				String dineroGanado = partes[6];
+				System.out.println("Broker ha decodificado correctamente");
+				int numAcciones = Integer.parseInt(resultadoDecodificado);
+				float dineroG= Float.parseFloat(dineroGanado);
+				for (Cliente cliente : bolsaClientes) {
+					if (cliente.getNombre().equals(nombreClienteDecodificado)) {
+						clienteEncontrado = cliente;
+					}
+				}
+				for (PaqueteDeAcciones cliente : clienteEncontrado.listaPaqueteDeAcciones) {
+					if (cliente.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
+						paquete = cliente;
+					}
+				}
+				paquete.setNumeroTitulos(paquete.getNumeroTitulos() - numAcciones);
+				clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() + dineroG);
+				bolsaClientes.remove(clienteEncontrado);
+				bolsaClientes.add(clienteEncontrado);
+		}else{//compra
+			System.out.println("Es una compra ");
+			String numAccionesCompradas = partes[4];
+			String valorAccion = partes[5];
+			String dineroRestante = partes[6];
+			System.out.println("Broker ha decodificado correctamente");
+			for (Cliente cliente : bolsaClientes) {
+				if (cliente.getNombre().equals(nombreClienteDecodificado)) {
+					clienteEncontrado = cliente;
+					System.out.println("se ha encontrado el cliente procedemos a la actualizacion de sus datos");
+				}else{
+					System.out.println("No se ha encontrado el cliente ");
+				}
+			}
+			for (PaqueteDeAcciones cliente : clienteEncontrado.listaPaqueteDeAcciones) {
+				if (cliente.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
+					paquete = cliente;
+				}
+			}
+			int numAcciones = Integer.parseInt(numAccionesCompradas);
+			float dineroG= Float.parseFloat(dineroRestante);
+			//paquete=clienteEncontrado.encontrar(mensajeVenta.getNombreEmpresa());
+			paquete.setNumeroTitulos(paquete.getNumeroTitulos() + numAcciones);
+			clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() + dineroG);
+			bolsaClientes.remove(clienteEncontrado);
+			bolsaClientes.add(clienteEncontrado);
+		}
+
+		
+			
 	}
 
 }
