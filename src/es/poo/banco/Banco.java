@@ -19,7 +19,7 @@ import java.io.*;
 
 public class Banco {
 	private String nombreBanco;
-	private HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
+	private HashSet<Cliente> bolsaClientes;
 	private HashSet<Cliente> copiaBolsaClientes = new HashSet<Cliente>();
 	private HashSet<Empresa> bolsaEmpresasAActualizar = new HashSet<Empresa>();
 	private ArrayList<Mensaje> listaPeticiones = new ArrayList<Mensaje>();
@@ -133,6 +133,20 @@ public class Banco {
 		broker.anadirSolicitudVenta(operacionId, clienteEncontrado.getNombre(), nombreEmpresa, numAcciones);
 	}
 
+	// Realizar solicitud actualizacion
+	public void realizarSolicitudActualizacion(String dniCliente) {
+		Cliente clienteEncontrado = null;
+		PaqueteDeAcciones clienteAccionEncontrado = null;
+		for (Cliente cliente : bolsaClientes) {
+			if (cliente.getDni().equals(dniCliente)) {
+				clienteEncontrado = cliente;
+			}
+		}
+		operacionId = operacionId + 1;
+		broker.anadirSolicitudActualizacion(operacionId, clienteEncontrado.getNombre(), dniCliente,
+				bolsaEmpresasAActualizar);
+	}
+
 	// Realizar copia de seguridad
 	public void copiaSeguridadClientes(String path) {
 
@@ -204,7 +218,7 @@ public class Banco {
 		} catch (NumberFormatException excepcion2) {
 			resultado = false;
 		}
-		if (resultado = true) {
+		if (resultado == true) {
 			System.out.println("Es una venta");
 			String valorAccion = partes[5];
 			String dineroGanado = partes[6];

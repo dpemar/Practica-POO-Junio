@@ -170,7 +170,7 @@ public class Simulador {
 			System.out.println("Dni cliente: ");
 			String dniCliente = escaner.leerString();
 			
-			banco.actualizacionDeValores(dniCliente);
+			banco.realizarSolicitudActualizacion(dniCliente);
 		}
 
 	// 17.- Imprimir operaciones pendientes
