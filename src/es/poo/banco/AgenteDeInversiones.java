@@ -3,12 +3,14 @@ package es.poo.banco;
 import es.poo.general.Escaner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
 import es.poo.bolsa.BolsaDeValores;
 import es.poo.bolsa.Empresa;
 import es.poo.mensajes.Mensaje;
+import es.poo.mensajes.MensajeActualizacion;
 import es.poo.mensajes.MensajeCompra;
 import es.poo.mensajes.MensajeRespuestaCompra;
 import es.poo.mensajes.MensajeVenta;
@@ -56,6 +58,19 @@ public class AgenteDeInversiones extends Persona {
 		Mensaje peticionVenta = new MensajeVenta(operacionId, nombreCliente, nombreEmpresa, numeroAcciones);
 		listaPeticiones.add(peticionVenta);
 	}
+	
+	// Anadir solicitud Actualizacion
+	public void anadirSolicitudActualizacion(int operacionId, String nombreCliente, String dniCliente, HashSet<Empresa> bolsaEmpresasAActualizar) {
+		Calendar fecha = Calendar.getInstance();
+		Mensaje peticionActualizacion = new MensajeActualizacion(operacionId, nombreCliente, dniCliente, bolsaEmpresasAActualizar, fecha);
+		listaPeticiones.add(peticionActualizacion);
+	}
+	
+//	public void añadePeticionActualizacionALaListaDeOperacionesPendientesDelBorker(int idOperacion,String nombreCliente , String dniCliente, HashSet<Empresa> empresasQueSeQuierenActualizar) {
+//        Calendar fecha = Calendar.getInstance();
+//        Mensaje peticionActualizacion = new MensajeActualizacion(idOperacion, Utilidades.formatoFecha(fecha),nombreCliente,dniCliente, TipoOperacion.ACTUALIZACION, empresasQueSeQuierenActualizar);
+//        operacionesPendientes.add(peticionActualizacion);
+//    }
 
 	// Imprimir operaciones pendientes
 	public void imprimirOperacionPendientes() {

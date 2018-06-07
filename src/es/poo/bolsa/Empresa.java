@@ -22,6 +22,12 @@ public class Empresa implements Serializable {
 		this.valorAccionPrevio = valorAccionPrevio;
 	}
 
+	public Empresa(String nombreEmpresa, float valorAccionActual) {
+		super();
+		this.nombreEmpresa = nombreEmpresa;
+		this.valorAccionActual = valorAccionActual;
+	}
+
 	public Empresa() {
 
 	}
@@ -87,7 +93,5 @@ public class Empresa implements Serializable {
 		}
 		System.out.println("-----------------");
 	}
-
-
 
 }

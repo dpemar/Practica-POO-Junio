@@ -30,8 +30,8 @@ public class Simulador {
 	public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker1", "50505050R", listaPeticiones);
 
 	public static void iniciar() {
-		//Acciones
-		PaqueteDeAcciones accion1 = new PaqueteDeAcciones("Empresa1", 10000,18);
+		// Acciones
+		PaqueteDeAcciones accion1 = new PaqueteDeAcciones("Empresa1", 10000, 18);
 		listaAcciones.add(accion1);
 
 		// Clientes
@@ -123,14 +123,14 @@ public class Simulador {
 
 	// 12.- Realizar copia de seguridad
 	public static void realizarCopiaSeguridadBolsa() {
-		bolsa1.copiaSeguridadBolsa("copiaSeguridadBolsa.txt");
+		bolsa1.copiaSeguridadBolsa("copiaSeguridadBolsa");
 		System.out.println("Serializacion realizada...Compruebe el archivo especifico\n");
 	}
 
 	// 13.- Restaurar copia de seguridad
 	public static void restaurarCopiaSeguridadBolsa() {
 		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados\n");
-		bolsa1.restaurarCopiaSeguridadBolsa("copiaSeguridadBolsa.txt");
+		bolsa1.restaurarCopiaSeguridadBolsa("copiaSeguridadBolsa");
 	}
 
 	// 14.- Solicitar compra de acciones
@@ -147,19 +147,30 @@ public class Simulador {
 		float cantidadMaxAInvertir = escaner.leerFloat();
 		banco.realizarSolicitudCompra(dniCliente, nombreEmpresa, cantidadMaxAInvertir);
 	}
+
 	// 15.- Solicitar venta de acciones
-		public static void solicitarVentaDeAcciones() {
+	public static void solicitarVentaDeAcciones() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Dni cliente: ");
+		String dniCliente = escaner.leerString();
+
+		System.out.println("Nombre empresa: ");
+		String nombreEmpresa = escaner.leerString();
+
+		System.out.println("Cantidad de acciones para su venta: ");
+		int cantidadAcciones = escaner.leerEntero();
+		banco.realizarSolicitudVenta(dniCliente, nombreEmpresa, cantidadAcciones);
+	}
+	
+	// 16.- Solicitar actualizacion de valores
+		public static void solicitarActualizacionValores() {
 			Escaner escaner = new Escaner();
 
 			System.out.println("Dni cliente: ");
 			String dniCliente = escaner.leerString();
-
-			System.out.println("Nombre empresa: ");
-			String nombreEmpresa = escaner.leerString();
-
-			System.out.println("Cantidad de acciones para su venta: ");
-			int cantidadAcciones = escaner.leerEntero();
-			banco.realizarSolicitudVenta(dniCliente, nombreEmpresa, cantidadAcciones);
+			
+			banco.actualizacionDeValores(dniCliente);
 		}
 
 	// 17.- Imprimir operaciones pendientes
@@ -198,13 +209,13 @@ public class Simulador {
 	}
 
 	public static void realizarCopiaSeguridadCliente() {
-		banco.copiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");
+		banco.copiaSeguridadClientes("copiaSeguridadBolsaClientes");
 		System.out.println("\nSerializacion realizada...Compruebe el archivo especifico");
 	}
 
 	public static void restaurarCopiaSeguridadCliente() {
 		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
-		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes.txt");
+		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes");
 	}
 
 	// public static void solicitudRecomendacion(){

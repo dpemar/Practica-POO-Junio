@@ -13,6 +13,11 @@ public class Cliente extends Persona implements Serializable {
 		this.saldo = saldo;
 		this.listaPaqueteDeAcciones = listaPaqueteDeAcciones;
 	}
+	
+	public Cliente (String nombre, String dni, float saldo) {
+		super(nombre, dni);
+		this.saldo = saldo;
+	}
 
 	@Override
 	public String getNombre() {

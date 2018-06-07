@@ -105,7 +105,8 @@ public class InterfazDeUsuario {
 				Simulador.solicitarVentaDeAcciones();
 				break;
 			case 16:
-				System.out.println("mostrar 16");
+				System.out.println("16.- Solicitar actualizacion de valores");
+				Simulador.solicitarActualizacionValores();
 				break;
 			case 17:
 				System.out.println("17.- Imprimir operaciones pendientes");

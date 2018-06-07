@@ -21,6 +21,7 @@ public class Banco {
 	private String nombreBanco;
 	private HashSet<Cliente> bolsaClientes = new HashSet<Cliente>();
 	private HashSet<Cliente> copiaBolsaClientes = new HashSet<Cliente>();
+	private HashSet<Empresa> bolsaEmpresasAActualizar = new HashSet<Empresa>();
 	private ArrayList<Mensaje> listaPeticiones = new ArrayList<Mensaje>();
 	private AgenteDeInversiones broker = new AgenteDeInversiones(nombreBanco, nombreBanco, listaPeticiones);
 	private GestorDeInversores gestor;
@@ -191,7 +192,7 @@ public class Banco {
 		Cliente clienteEncontrado = null;
 		PaqueteDeAcciones paquete = null;
 		cadenaFinal = broker.ejecutarOperacionesPendientes(bolsa1);
-		
+
 		String[] partes = cadenaFinal.split(Pattern.quote("|"));
 		String operacionIdDecodificado = partes[0];
 		String nombreClienteDecodificado = partes[1];
@@ -251,7 +252,49 @@ public class Banco {
 			bolsaClientes.remove(clienteEncontrado);
 			bolsaClientes.add(clienteEncontrado);
 		}
+	}
 
+	// Actualizacion de valores
+	public void actualizacionDeValores(String dniCliente) {
+		Cliente clienteAux = new Cliente("nuevo", dniCliente, 1);
+
+		if (!bolsaClientes.contains(clienteAux)) {
+			System.out.println("Cliente con dni " + clienteAux.getDni() + " no pertenece al banco");
+		} else {
+			for (Cliente cliente : bolsaClientes) {
+				if (cliente.equals(clienteAux)) {
+					clienteAux = cliente;
+					break;
+				}
+			}
+		}
+		if (clienteAux.getPaqueteDeAcciones().size() == 0) {
+			System.out.println("Cliente con dni " + clienteAux.getDni() + " no tiene paquetes de acciones");
+		} else {
+			for (PaqueteDeAcciones paquetes : clienteAux.getPaqueteDeAcciones()) {
+				PaqueteDeAcciones paquetesAcciones = (PaqueteDeAcciones) paquetes;
+				Empresa empresa = new Empresa(paquetesAcciones.getNombreEmpresa(), paquetesAcciones.getValorActual());
+
+				System.out.println(paquetesAcciones.getNombreEmpresa());
+				empresa.setNombreEmpresa(paquetesAcciones.getNombreEmpresa());
+
+				System.out.println(empresa.getNombreEmpresa());
+				bolsaEmpresasAActualizar.add(empresa);
+				System.out.println(bolsaEmpresasAActualizar.toString());
+
+			}
+			System.out.println("Banco esta almacenando la peticion..");
+			operacionId = operacionId + 1;
+			System.out.println("------------------------------------");
+			System.out.println("Datos peticion");
+			System.out.println("OperacionId: ");
+			System.out.println("Nombre: ");
+			System.out.println("DNI");
+			System.out.println("Paquetes a actualizar: ");
+			broker.anadirSolicitudActualizacion(operacionId, clienteAux.getNombre(), dniCliente,
+					bolsaEmpresasAActualizar);
+			System.out.println("Almacenada con exito la peticion");
+		}
 	}
 
 }
