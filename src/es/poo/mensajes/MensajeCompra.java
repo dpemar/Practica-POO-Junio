@@ -1,7 +1,6 @@
 package es.poo.mensajes;
 
 public class MensajeCompra extends Mensaje {
-	
 
 	private float maxInversion;
 
@@ -9,7 +8,7 @@ public class MensajeCompra extends Mensaje {
 		super(operacionId, nombreCliente, nombreEmpresa);
 		this.maxInversion = maxInversion;
 	}
-	
+
 	public float getMaxInversion() {
 		return maxInversion;
 	}

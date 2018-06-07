@@ -114,7 +114,6 @@ public class InterfazDeUsuario {
 			case 18:
 				System.out.println("18.- Ejecutar operaciones pendientes");
 				Simulador.ejecutarOperacionesPendientes();
-				// falta actualizar los valores (lo hago luego)
 				break;
 			case 19:
 				mostrarMenu();

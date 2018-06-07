@@ -35,14 +35,9 @@ public class Mensaje {
 	public void setNombreEmpresa(String nombreEmpresa) {
 		this.nombreEmpresa = nombreEmpresa;
 	}
+
 	public String codificarMensaje() {
-		String mensaje = this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() ;
+		String mensaje = this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa();
 		return mensaje;
 	}
-	public enum tipoOperacion {
-		COMPRA,
-		VENTA,
-		ACTUALIZACION;
-	}
-
 }

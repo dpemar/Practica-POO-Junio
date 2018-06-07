@@ -15,8 +15,8 @@ import es.poo.mensajes.MensajeVenta;
 
 public class AgenteDeInversiones extends Persona {
 
-	//private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
-	//private BolsaDeValores bolsa1 = new BolsaDeValores("bolsa1", listaEmpresas);
+	// private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
+	// private BolsaDeValores bolsa1 = new BolsaDeValores("bolsa1", listaEmpresas);
 	private static ArrayList<Mensaje> listaPeticiones;
 	private static ArrayList<Mensaje> listaPeticionesVenta;
 	private static ArrayList<Mensaje> peticionesEjecutar;
@@ -46,12 +46,13 @@ public class AgenteDeInversiones extends Persona {
 	// Anadir solicitud
 	public void anadirSolicitudCompra(int operacionId, String nombreCliente, String nombreEmpresa,
 			float cantidadMaxAInvertir) {
-		MensajeCompra peticionCompra = new MensajeCompra(operacionId, nombreCliente, nombreEmpresa, cantidadMaxAInvertir);
+		MensajeCompra peticionCompra = new MensajeCompra(operacionId, nombreCliente, nombreEmpresa,
+				cantidadMaxAInvertir);
 		listaPeticiones.add(peticionCompra);
 	}
+
 	// Anadir solicitud Venta
-	public void anadirSolicitudVenta(int operacionId, String nombreCliente, String nombreEmpresa,
-			int numeroAcciones) {
+	public void anadirSolicitudVenta(int operacionId, String nombreCliente, String nombreEmpresa, int numeroAcciones) {
 		Mensaje peticionVenta = new MensajeVenta(operacionId, nombreCliente, nombreEmpresa, numeroAcciones);
 		listaPeticiones.add(peticionVenta);
 	}
@@ -62,53 +63,50 @@ public class AgenteDeInversiones extends Persona {
 			Mensaje mensaje = null;
 			mensaje = peticiones;
 			System.out.println(mensaje.codificarMensaje());
-			
-			
 		}
 	}
 
-
 	// Ejecutar operaciones pendientes
-	public String ejecutarOperacionesPendientes(BolsaDeValores bolsa1/*HashSet<Cliente> listaClientes,HashSet<Empresa> listaEmpresas*/) {
+	public String ejecutarOperacionesPendientes(
+			BolsaDeValores bolsa1/* HashSet<Cliente> listaClientes,HashSet<Empresa> listaEmpresas */) {
 		String cadenaRespuestaCodificada = null;
 		Mensaje mensaje = null;
 		int inver;
 		boolean resultado;
 		for (Mensaje peticiones : listaPeticiones) {
-				mensaje =  peticiones;
-				String cadenaCodificada;
-			
+			mensaje = peticiones;
+			String cadenaCodificada;
 
 			cadenaCodificada = mensaje.codificarMensaje();
 			System.out.println("Codificacion cadena terminada");
 			System.out.println(cadenaCodificada);
 			String[] par = cadenaCodificada.split(Pattern.quote("|"));
 			String parte3 = par[3];
-	        try {
-	        	inver = Integer.parseInt(parte3);
-	            resultado = true ;
-	            
-	        } catch (NumberFormatException excepcion) {
-	            resultado = false;
-	        }
-	        System.out.println(resultado);
-			
-			if(resultado==false){
-			cadenaRespuestaCodificada = bolsa1.intentaOperacion(cadenaCodificada);
-			System.out.println("El broker ha recibido la cadena compra codificada");
-			System.out.println(cadenaRespuestaCodificada);
+			try {
+				inver = Integer.parseInt(parte3);
+				resultado = true;
 
-			}else{
-			cadenaRespuestaCodificada = bolsa1.intentaOperacionVenta(cadenaCodificada);
-			System.out.println("El broker ha recibido la cadena Venta codificada");	
-			System.out.println(cadenaRespuestaCodificada);
+			} catch (NumberFormatException excepcion) {
+				resultado = false;
+			}
+			System.out.println(resultado);
+
+			if (resultado == false) {
+				cadenaRespuestaCodificada = bolsa1.intentaOperacion(cadenaCodificada);
+				System.out.println("El broker ha recibido la cadena compra codificada");
+				System.out.println(cadenaRespuestaCodificada);
+
+			} else {
+				cadenaRespuestaCodificada = bolsa1.intentaOperacionVenta(cadenaCodificada);
+				System.out.println("El broker ha recibido la cadena Venta codificada");
+				System.out.println(cadenaRespuestaCodificada);
 			}
 		}
-		/*for (Mensaje peticiones : listaPeticiones) {
-			mensaje =  peticiones;
-			listaPeticiones.remove(mensaje);
-		}*/
+		/*
+		 * for (Mensaje peticiones : listaPeticiones) { mensaje = peticiones;
+		 * listaPeticiones.remove(mensaje); }
+		 */
 		return cadenaRespuestaCodificada;
 	}
-	
+
 }

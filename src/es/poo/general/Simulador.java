@@ -45,7 +45,6 @@ public class Simulador {
 		banco.anadirCliente(cliente2);
 		banco.anadirCliente(cliente3);
 		banco.eliminarCliente(cliente3);
-		// Banco banco2 = new Banco("Santander", bolsaCli, broker); no se utiliza!!
 
 		// Empresa
 		Empresa empresa1 = new Empresa("Empresa1", 12, 10);
