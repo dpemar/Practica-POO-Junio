@@ -17,7 +17,7 @@ public class Escaner {
 	public double leerReal() {
 		return entrada.nextDouble();
 	}
-	
+
 	public float leerFloat() {
 		return entrada.nextFloat();
 	}

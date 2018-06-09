@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
+import com.sun.tools.javac.code.Source;
+
 import es.poo.banco.AgenteDeInversiones;
 
 public class BolsaDeValores {
@@ -71,7 +73,7 @@ public class BolsaDeValores {
 	}
 
 	// Intentar operacion desde el broker
-	public String intentaOperacion(String cadenaCodificada) {
+	public String intentaOperacionCompra(String cadenaCodificada) {
 		boolean esRealizada;
 		int numAccionesCompradas = 0;
 		float valorAccion = 0;
@@ -91,7 +93,6 @@ public class BolsaDeValores {
 		for (Empresa empresa : listaEmpresas) {
 			if (empresa.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
 				empresaEncontrado = empresa;
-
 			}
 		}
 		if (empresaEncontrado == null
@@ -111,8 +112,9 @@ public class BolsaDeValores {
 			numAccionesCompradas = (int) Math.round(cantidadMaximaAInvertir / empresaEncontrado.getValorAccionActual());
 
 			dineroRestante = resto * empresaEncontrado.getValorAccionActual();
+			System.out.println();
 			System.out.println("Compra terminada");
-
+			System.out.println();
 			empresaEncontrado.setValorAccionPrevio(empresaEncontrado.getValorAccionActual());
 			empresaEncontrado.setValorAccionActual(empresaEncontrado.getValorAccionActual()
 					+ (numAccionesCompradas * empresaEncontrado.getValorAccionActual()));
@@ -127,6 +129,7 @@ public class BolsaDeValores {
 			System.out.println("Bolsa ha terminado la operacion compra de acciones");
 			System.out.println("--------------");
 			System.out.println("Bolsa envia cadena de texto de respuesta compra al broker");
+			System.out.println();
 
 		}
 		return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + nombreEmpresaDecodificado + "|"
@@ -164,7 +167,9 @@ public class BolsaDeValores {
 			int numAcciones = Integer.parseInt(cantidadAcciones);
 			dineroGanado = (int) (numAcciones * valorAccion);
 
+			System.out.println();
 			System.out.println("Venta terminada");
+			System.out.println();
 
 			empresaEncontrado.setValorAccionPrevio(empresaEncontrado.getValorAccionActual());
 			empresaEncontrado.setValorAccionActual(empresaEncontrado.getValorAccionActual()
@@ -180,6 +185,7 @@ public class BolsaDeValores {
 			System.out.println("Bolsa ha terminado la operacion venta acciones");
 			System.out.println("--------------");
 			System.out.println("Bolsa envia cadena de texto de respuesta venta al broker");
+			System.out.println();
 
 			return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + nombreEmpresaDecodificado + "|"
 					+ numAcciones + "|" + "true" + "|" + "|" + valorAccion + "|" + dineroGanado + "|";
@@ -252,7 +258,7 @@ public class BolsaDeValores {
 		return encontrado;
 	}
 
-	// Eliminar empresa mediante Empresa
+	// Eliminar todas las operaciones
 	public void eliminarTodasOperaciones() {
 		this.operacionesOperaciones.removeAll(operacionesOperaciones);
 	}

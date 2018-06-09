@@ -7,13 +7,11 @@ import es.poo.bolsa.Empresa;
 
 public class MensajeActualizacion extends Mensaje {
 
-	protected HashSet<Empresa> bolsaEmpresasAActualizar;
-	protected Calendar fecha;
+	private HashSet<Empresa> bolsaEmpresasAActualizar;
+	private Calendar fecha;
 
-	public MensajeActualizacion(int operacionId, String nombreCliente, String nombreEmpresa,
-			HashSet<Empresa> bolsaEmpresasAActualizar, Calendar fecha) {
+	public MensajeActualizacion(int operacionId, String nombreCliente, String nombreEmpresa, Calendar fecha) {
 		super(operacionId, nombreCliente, nombreEmpresa);
-		this.bolsaEmpresasAActualizar = bolsaEmpresasAActualizar;
 		this.fecha = fecha;
 	}
 
@@ -35,10 +33,9 @@ public class MensajeActualizacion extends Mensaje {
 
 	@Override
 	public String codificarMensaje() {
-		String mensaje = this.getOperacionId() + "|" + this.getFecha() + "|" + this.getNombreCliente() + "|"
-				+ this.getNombreEmpresa();
-		// String mensaje = this.getOperacionId() + "|" + this.getFecha(); uno u otro,
-		// por lo campos para diferenciarlos del resto
+		String mensaje = this.getOperacionId() + "|" + this.getNombreCliente() + "|" + this.getNombreEmpresa() + "|"
+				+ this.getFecha();
+
 		return mensaje;
 	}
 

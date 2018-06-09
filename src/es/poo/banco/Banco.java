@@ -18,12 +18,13 @@ import es.poo.mensajes.Mensaje;
 import java.io.*;
 
 public class Banco {
+
 	private String nombreBanco;
 	private HashSet<Cliente> bolsaClientes;
 	private HashSet<Cliente> copiaBolsaClientes = new HashSet<Cliente>();
 	private HashSet<Empresa> bolsaEmpresasAActualizar = new HashSet<Empresa>();
 	private ArrayList<Mensaje> listaPeticiones = new ArrayList<Mensaje>();
-	private AgenteDeInversiones broker = new AgenteDeInversiones(nombreBanco, nombreBanco, listaPeticiones);
+	private AgenteDeInversiones broker = new AgenteDeInversiones("broker", "50505050R", listaPeticiones);
 	private GestorDeInversores gestor;
 	private int operacionId = 0;
 
@@ -53,14 +54,17 @@ public class Banco {
 		this.bolsaClientes = bolsaClientes;
 	}
 
+	// Anadir cliente
 	public void anadirCliente(Cliente cliente) {
 		this.bolsaClientes.add(cliente);
 	}
 
+	// Eliminar cliente mediante cliente
 	public void eliminarCliente(Cliente cliente) {
 		this.bolsaClientes.remove(cliente);
 	}
 
+	// Eliminar cliente mediante nombre
 	public void eliminarCliente(String cliente) {
 		Cliente encontrado = null;
 		for (Cliente client : bolsaClientes) {
@@ -80,6 +84,7 @@ public class Banco {
 		}
 	}
 
+	// Mostrar clientes
 	public void mostrarClientes() {
 		for (Cliente bolsa : bolsaClientes) {
 			bolsa.mostrarEstadoClientes();
@@ -113,7 +118,6 @@ public class Banco {
 				clienteEncontrado = cliente;
 			}
 		}
-
 		operacionId = operacionId + 1;
 		broker.anadirSolicitudCompra(operacionId, clienteEncontrado.getNombre(), nombreEmpresa, cantidadMaxAInvertir);
 
@@ -136,15 +140,13 @@ public class Banco {
 	// Realizar solicitud actualizacion
 	public void realizarSolicitudActualizacion(String dniCliente) {
 		Cliente clienteEncontrado = null;
-		PaqueteDeAcciones clienteAccionEncontrado = null;
 		for (Cliente cliente : bolsaClientes) {
 			if (cliente.getDni().equals(dniCliente)) {
 				clienteEncontrado = cliente;
 			}
 		}
 		operacionId = operacionId + 1;
-		broker.anadirSolicitudActualizacion(operacionId, clienteEncontrado.getNombre(), dniCliente,
-				bolsaEmpresasAActualizar);
+//		broker.anadirSolicitudActualizacion(operacionId, clienteEncontrado.getNombre(), nombreEmpresa, dniCliente, bolsaEmpresasAActualizar, fecha);
 	}
 
 	// Realizar copia de seguridad
@@ -239,28 +241,37 @@ public class Banco {
 			clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() + dineroG);
 			bolsaClientes.remove(clienteEncontrado);
 			bolsaClientes.add(clienteEncontrado);
-		} else {// compra
-			System.out.println("Es una compra ");
+		} else {
+			// COMPRA
+			System.out.println("Es una compra");
 			String numAccionesCompradas = partes[4];
 			String valorAccion = partes[5];
 			String dineroRestante = partes[6];
 			System.out.println("Broker ha decodificado correctamente");
+
+			boolean encontrado = false;
 			for (Cliente cliente : bolsaClientes) {
+				if (encontrado) {
+					break;
+				}
 				if (cliente.getNombre().equals(nombreClienteDecodificado)) {
 					clienteEncontrado = cliente;
-					System.out.println("se ha encontrado el cliente procedemos a la actualizacion de sus datos");
-				} else {
-					System.out.println("No se ha encontrado el cliente ");
+					encontrado = true;
+					System.out.println("Se ha encontrado el cliente procedemos a la actualizacion de sus datos");
 				}
 			}
+			if (!encontrado) {
+				System.out.println("No se ha encontrado el cliente");
+			}
+
 			for (PaqueteDeAcciones cliente : clienteEncontrado.listaPaqueteDeAcciones) {
 				if (cliente.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
 					paquete = cliente;
 				}
 			}
+
 			int numAcciones = Integer.parseInt(numAccionesCompradas);
 			float dineroG = Float.parseFloat(dineroRestante);
-			// paquete=clienteEncontrado.encontrar(mensajeVenta.getNombreEmpresa());
 			paquete.setNumeroTitulos(paquete.getNumeroTitulos() + numAcciones);
 			clienteEncontrado.setSaldo(clienteEncontrado.getSaldo() + dineroG);
 			bolsaClientes.remove(clienteEncontrado);
@@ -305,8 +316,7 @@ public class Banco {
 			System.out.println("Nombre: ");
 			System.out.println("DNI");
 			System.out.println("Paquetes a actualizar: ");
-			broker.anadirSolicitudActualizacion(operacionId, clienteAux.getNombre(), dniCliente,
-					bolsaEmpresasAActualizar);
+//			broker.anadirSolicitudActualizacion(operacionId, clienteAux.getNombre(), dniCliente, bolsaEmpresasAActualizar);
 			System.out.println("Almacenada con exito la peticion");
 		}
 	}

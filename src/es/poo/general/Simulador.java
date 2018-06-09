@@ -74,6 +74,45 @@ public class Simulador {
 		}
 	}
 
+	// 3.- Anadir cliente
+	public static void clienteConDatos() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Introduzca su nombre");
+		String nombre = escaner.leerString();
+
+		System.out.println("Introduzca su dni");
+		String dni = escaner.leerString();
+
+		System.out.println("Introduzca su saldo");
+		float saldo = escaner.leerFloat();
+
+		cli = new Cliente(nombre, dni, saldo, null);
+		banco.anadirCliente(cli);
+	}
+
+	// 4.- Eliminar cliente
+	public static void eliminarCliNombre() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Introduzca el nombre del cliente que quieres borar");
+		String nombre = escaner.leerString();
+
+		banco.eliminarCliente(nombre);
+	}
+
+	// 5.- Realizar copia de seguridad
+	public static void realizarCopiaSeguridadCliente() {
+		banco.copiaSeguridadClientes("copiaSeguridadBolsaClientes");
+		System.out.println("\nSerializacion realizada...Compruebe el archivo especifico");
+	}
+
+	// 6.- Restaurar copia de seguridad
+	public static void restaurarCopiaSeguridadCliente() {
+		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
+		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes");
+	}
+
 	// 7. Mejorar cliente a PREMIUM
 	public static void mejorarClienteAPremium() {
 		Escaner escaner = new Escaner();
@@ -84,6 +123,8 @@ public class Simulador {
 		banco.hacerClientePremium(dniCliente);
 		System.out.println("Cliente mejorado como ClientePREMIUM");
 	}
+
+	// 8.- Solicita recomendacion de inversion
 
 	// 9. Anadir Empresa a la Bolsa
 	public static void anadirEmpresa() {
@@ -145,6 +186,7 @@ public class Simulador {
 
 		System.out.println("Cantidad maxima a invertir: ");
 		float cantidadMaxAInvertir = escaner.leerFloat();
+		
 		banco.realizarSolicitudCompra(dniCliente, nombreEmpresa, cantidadMaxAInvertir);
 	}
 
@@ -160,18 +202,19 @@ public class Simulador {
 
 		System.out.println("Cantidad de acciones para su venta: ");
 		int cantidadAcciones = escaner.leerEntero();
+		
 		banco.realizarSolicitudVenta(dniCliente, nombreEmpresa, cantidadAcciones);
 	}
-	
-	// 16.- Solicitar actualizacion de valores
-		public static void solicitarActualizacionValores() {
-			Escaner escaner = new Escaner();
 
-			System.out.println("Dni cliente: ");
-			String dniCliente = escaner.leerString();
-			
-			banco.realizarSolicitudActualizacion(dniCliente);
-		}
+	// 16.- Solicitar actualizacion de valores
+	public static void solicitarActualizacionValores() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Dni cliente: ");
+		String dniCliente = escaner.leerString();
+
+		banco.realizarSolicitudActualizacion(dniCliente);
+	}
 
 	// 17.- Imprimir operaciones pendientes
 	public static void imprimirOperacionesPendientes() {
@@ -182,45 +225,4 @@ public class Simulador {
 	public static void ejecutarOperacionesPendientes() {
 		banco.ejecutardorDeOperacionesPendientes(bolsa1);
 	}
-
-	public static void clienteConDatos() {
-		Escaner escaner = new Escaner();
-
-		System.out.println("Introduzca su nombre");
-		String nombre = escaner.leerString();
-
-		System.out.println("Introduzca su dni");
-		String dni = escaner.leerString();
-
-		System.out.println("Introduzca su saldo");
-		float saldo = escaner.leerFloat();
-
-		cli = new Cliente(nombre, dni, saldo, null);
-		banco.anadirCliente(cli);
-	}
-
-	public static void eliminarCliNombre() {
-		Escaner escaner = new Escaner();
-
-		System.out.println("Introduzca el nombre del cliente que quieres borar");
-		String nombre = escaner.leerString();
-
-		banco.eliminarCliente(nombre);
-	}
-
-	public static void realizarCopiaSeguridadCliente() {
-		banco.copiaSeguridadClientes("copiaSeguridadBolsaClientes");
-		System.out.println("\nSerializacion realizada...Compruebe el archivo especifico");
-	}
-
-	public static void restaurarCopiaSeguridadCliente() {
-		System.out.println("\nDeserializando datos ...Compruebe los datos restaurados");
-		banco.restaurarCopiaSeguridadClientes("copiaSeguridadBolsaClientes");
-	}
-
-	// public static void solicitudRecomendacion(){
-	// System.out.println("La mejor opcion para invertir es:");
-	// gestor.recomendacion();
-	// }
-
 }

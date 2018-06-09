@@ -42,7 +42,7 @@ public class InterfazDeUsuario {
 			switch (numero) {
 			case 0:
 				System.out.println("0.- Salir");
-				System.out.println("Ha salido correctamente de la aplicación");
+				System.out.println("Acaba de salir de la aplicacion correctamente");
 				break;
 			case 1:
 				System.out.println("1.- Imprimir estado de los clientes");
@@ -73,7 +73,7 @@ public class InterfazDeUsuario {
 				Simulador.mejorarClienteAPremium();
 				break;
 			case 8:
-				System.out.println("Solicita recomendacion de inversion");
+				System.out.println("8.- Solicita recomendacion de inversion");
 				// Simulador.solicitudRecomendacion();
 				break;
 			case 9:

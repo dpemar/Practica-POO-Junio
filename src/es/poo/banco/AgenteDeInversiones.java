@@ -17,8 +17,6 @@ import es.poo.mensajes.MensajeVenta;
 
 public class AgenteDeInversiones extends Persona {
 
-	// private HashSet<Empresa> listaEmpresas = new HashSet<Empresa>();
-	// private BolsaDeValores bolsa1 = new BolsaDeValores("bolsa1", listaEmpresas);
 	private static ArrayList<Mensaje> listaPeticiones;
 	private static ArrayList<Mensaje> listaPeticionesVenta;
 	private static ArrayList<Mensaje> peticionesEjecutar;
@@ -58,19 +56,12 @@ public class AgenteDeInversiones extends Persona {
 		Mensaje peticionVenta = new MensajeVenta(operacionId, nombreCliente, nombreEmpresa, numeroAcciones);
 		listaPeticiones.add(peticionVenta);
 	}
-	
+
 	// Anadir solicitud Actualizacion
-	public void anadirSolicitudActualizacion(int operacionId, String nombreCliente, String dniCliente, HashSet<Empresa> bolsaEmpresasAActualizar) {
-		Calendar fecha = Calendar.getInstance();
-		Mensaje peticionActualizacion = new MensajeActualizacion(operacionId, nombreCliente, dniCliente, bolsaEmpresasAActualizar, fecha);
+	public void anadirSolicitudActualizacion(int operacionId, String nombreCliente, String nombreEmpresa, Calendar fecha) {
+		Mensaje peticionActualizacion = new MensajeActualizacion(operacionId, nombreCliente, nombreEmpresa, fecha);
 		listaPeticiones.add(peticionActualizacion);
 	}
-	
-//	public void añadePeticionActualizacionALaListaDeOperacionesPendientesDelBorker(int idOperacion,String nombreCliente , String dniCliente, HashSet<Empresa> empresasQueSeQuierenActualizar) {
-//        Calendar fecha = Calendar.getInstance();
-//        Mensaje peticionActualizacion = new MensajeActualizacion(idOperacion, Utilidades.formatoFecha(fecha),nombreCliente,dniCliente, TipoOperacion.ACTUALIZACION, empresasQueSeQuierenActualizar);
-//        operacionesPendientes.add(peticionActualizacion);
-//    }
 
 	// Imprimir operaciones pendientes
 	public void imprimirOperacionPendientes() {
@@ -82,8 +73,7 @@ public class AgenteDeInversiones extends Persona {
 	}
 
 	// Ejecutar operaciones pendientes
-	public String ejecutarOperacionesPendientes(
-			BolsaDeValores bolsa1/* HashSet<Cliente> listaClientes,HashSet<Empresa> listaEmpresas */) {
+	public String ejecutarOperacionesPendientes(BolsaDeValores bolsa1) {
 		String cadenaRespuestaCodificada = null;
 		Mensaje mensaje = null;
 		int inver;
@@ -95,6 +85,7 @@ public class AgenteDeInversiones extends Persona {
 			cadenaCodificada = mensaje.codificarMensaje();
 			System.out.println("Codificacion cadena terminada");
 			System.out.println(cadenaCodificada);
+
 			String[] par = cadenaCodificada.split(Pattern.quote("|"));
 			String parte3 = par[3];
 			try {
@@ -104,23 +95,23 @@ public class AgenteDeInversiones extends Persona {
 			} catch (NumberFormatException excepcion) {
 				resultado = false;
 			}
-			System.out.println(resultado);
 
 			if (resultado == false) {
-				cadenaRespuestaCodificada = bolsa1.intentaOperacion(cadenaCodificada);
+				cadenaRespuestaCodificada = bolsa1.intentaOperacionCompra(cadenaCodificada);
 				System.out.println("El broker ha recibido la cadena compra codificada");
 				System.out.println(cadenaRespuestaCodificada);
+				System.out.println();
 
 			} else {
 				cadenaRespuestaCodificada = bolsa1.intentaOperacionVenta(cadenaCodificada);
 				System.out.println("El broker ha recibido la cadena Venta codificada");
 				System.out.println(cadenaRespuestaCodificada);
+				System.out.println();
 			}
 		}
-		/*
-		 * for (Mensaje peticiones : listaPeticiones) { mensaje = peticiones;
-		 * listaPeticiones.remove(mensaje); }
-		 */
+
+		listaPeticiones.clear();
+
 		return cadenaRespuestaCodificada;
 	}
 
