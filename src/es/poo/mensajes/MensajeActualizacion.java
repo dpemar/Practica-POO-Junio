@@ -7,27 +7,28 @@ import es.poo.bolsa.Empresa;
 
 public class MensajeActualizacion extends Mensaje {
 
-	private HashSet<Empresa> bolsaEmpresasAActualizar;
-	private Calendar fecha;
+	HashSet<Empresa> bolsaEmpresasAActualizar;
+	String fecha;
 
-	public MensajeActualizacion(int operacionId, String nombreCliente, String nombreEmpresa, Calendar fecha) {
+	public MensajeActualizacion(int operacionId, String nombreCliente, String nombreEmpresa, String fecha) {
 		super(operacionId, nombreCliente, nombreEmpresa);
 		this.fecha = fecha;
+		this.bolsaEmpresasAActualizar = new HashSet<Empresa>();
 	}
 
 	public HashSet<Empresa> getBolsaEmpresasAActualizar() {
 		return bolsaEmpresasAActualizar;
 	}
 
-	public Calendar getFecha() {
-		return fecha;
+	public String getFecha() {
+		return "Fecha: " + fecha;
 	}
 
 	public void setBolsaEmpresasAActualizar(HashSet<Empresa> bolsaEmpresasAActualizar) {
 		this.bolsaEmpresasAActualizar = bolsaEmpresasAActualizar;
 	}
 
-	public void setFecha(Calendar fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

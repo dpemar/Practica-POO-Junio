@@ -1,8 +1,10 @@
 package es.poo.banco;
 
+import java.io.Serializable;
+
 import es.poo.bolsa.Empresa;
 
-public class PaqueteDeAcciones  {
+public class PaqueteDeAcciones implements Serializable  {
 
 	String nombreEmpresa;
 	int numeroTitulos;

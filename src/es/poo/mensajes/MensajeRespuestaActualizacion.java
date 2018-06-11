@@ -9,7 +9,8 @@ public class MensajeRespuestaActualizacion extends MensajeActualizacion {
 
 	private boolean estaRealizada;
 
-	public MensajeRespuestaActualizacion(int operacionId, String nombreCliente, String nombreEmpresa, Calendar fecha, boolean estaRealizada) {
+	public MensajeRespuestaActualizacion(int operacionId, String nombreCliente, String nombreEmpresa, String fecha,
+			boolean estaRealizada) {
 		super(operacionId, nombreCliente, nombreEmpresa, fecha);
 		this.estaRealizada = estaRealizada;
 	}

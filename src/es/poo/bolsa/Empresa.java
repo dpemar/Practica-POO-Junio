@@ -64,15 +64,21 @@ public class Empresa implements Serializable {
 		this.incremento = incremento;
 	}
 
+	public double calculaVariacion() {
+		if (valorAccionPrevio == 0) {
+			return 0;
+		}
+		return ((valorAccionActual - valorAccionPrevio) / valorAccionPrevio) * 100;
+	}
+
 	public boolean equals(Empresa e) {
 		return super.equals(e);
 	}
 
 	@Override
 	public String toString() {
-		return "Empresa [nombreEmpresa=" + nombreEmpresa + ", valorAccionActual=" + valorAccionActual
-				+ ", valorAccionPrevio=" + valorAccionPrevio + ", incremento=" + incremento + ", minValor=" + minValor
-				+ ", maxValor=" + maxValor + "]";
+		return "NombreEmpresa: " + this.getNombreEmpresa() + "; valorAccionActual: " + this.getValorAccionActual()
+				+ "; valorAccionPrevio: " + this.getValorAccionPrevio() + "; incremento: " + this.getIncremento();
 	}
 
 	// Actualizar el valor de las acciones

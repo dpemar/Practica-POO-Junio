@@ -37,6 +37,14 @@ public class BolsaDeValores {
 		this.nombreBolsa = nombreBolsa;
 	}
 
+	public HashSet<Empresa> getListaEmpresas() {
+		return listaEmpresas;
+	}
+
+	public void setListaEmpresas(HashSet<Empresa> listaEmpresas) {
+		this.listaEmpresas = listaEmpresas;
+	}
+
 	// Añadir empresa
 	public void anadirEmpresa(Empresa empresa) {
 		this.listaEmpresas.add(empresa);
@@ -49,13 +57,21 @@ public class BolsaDeValores {
 
 	// Eliminar empresa mediante Nombre
 	public void eliminarEmpresa(String nombreEmpresa) {
-		Empresa encontrado = null;
+		boolean encontrado = false;
+		Empresa EmpresaEncontrada = null;
 		for (Empresa empresa : listaEmpresas) {
 			if (empresa.getNombreEmpresa().equals(nombreEmpresa)) {
-				encontrado = empresa;
+				EmpresaEncontrada = empresa;
+				encontrado = true;
 			}
 		}
-		this.listaEmpresas.remove(encontrado);
+		if (encontrado) {
+			this.listaEmpresas.remove(EmpresaEncontrada);
+			System.out.println("Empresa " + nombreEmpresa + " eliminada correctamente\n");
+
+		} else {
+			System.out.println("Empresa no encontrada");
+		}
 	}
 
 	// Listado estado empresas
@@ -189,6 +205,46 @@ public class BolsaDeValores {
 
 			return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + nombreEmpresaDecodificado + "|"
 					+ numAcciones + "|" + "true" + "|" + "|" + valorAccion + "|" + dineroGanado + "|";
+
+		}
+	}
+
+	public String intentaOperacionActualizacion(String cadenaCodificada) {
+
+		boolean esRealizada;
+
+		String[] partes = cadenaCodificada.split(Pattern.quote("|"));
+		String operacionIdDecodificado = partes[0];
+		String nombreClienteDecodificado = partes[1];
+		String nombreEmpresaDecodificado = partes[2];
+		String fechaDecodificado = partes[3];
+
+		System.out.println("Bolsa ha terminado de decodificar");
+		System.out.println("---------------------------------");
+		System.out.println("Bolsa realiza la operacion de actualizacion de acciones");
+
+		Empresa empresaEncontrado = null;
+		for (Empresa empresa : listaEmpresas) {
+			if (empresa.getNombreEmpresa().equals(nombreEmpresaDecodificado)) {
+				empresaEncontrado = empresa;
+			}
+		}
+		if (empresaEncontrado == null) {
+			System.out.println("Las acciones de la Empresa que desea actualizar no existe");
+			return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + "false" + "|";
+		} else {
+
+			System.out.println();
+			System.out.println("Actualizacion terminada");
+			System.out.println();
+
+			System.out.println("Bolsa ha terminado la operacion actualizar acciones");
+			System.out.println("--------------");
+			System.out.println("Bolsa envia cadena de texto de respuesta actualizacion al broker");
+			System.out.println();
+
+			return operacionIdDecodificado + "|" + nombreClienteDecodificado + "|" + nombreEmpresaDecodificado + "|"
+					+ fechaDecodificado;
 
 		}
 

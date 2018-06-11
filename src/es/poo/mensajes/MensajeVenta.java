@@ -7,10 +7,11 @@ public class MensajeVenta extends Mensaje {
 		super(operacionId, nombreCliente, nombreEmpresa);
 		this.numAcciones = numAcciones;
 	}
-	
+
 	public int getNumAcciones() {
 		return numAcciones;
 	}
+
 	public void setNumAcciones(int numAcciones) {
 		this.numAcciones = numAcciones;
 	}
@@ -20,7 +21,5 @@ public class MensajeVenta extends Mensaje {
 				+ getNumAcciones();
 		return mensaje;
 	}
-
-	
 
 }

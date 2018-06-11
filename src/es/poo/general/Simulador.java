@@ -25,8 +25,6 @@ public class Simulador {
 	// Bolsa de Valores
 	public static BolsaDeValores bolsa1 = new BolsaDeValores("Bolsa1", listaEmpresas);
 	// Agente de Inversiones
-	// public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker",
-	// "50121232D");
 	public static AgenteDeInversiones broker = new AgenteDeInversiones("Broker1", "50505050R", listaPeticiones);
 
 	public static void iniciar() {
@@ -40,7 +38,7 @@ public class Simulador {
 		Cliente cliente3 = new Cliente("nombre3", "dni3", 150, listaAcciones);
 
 		// Banco
-		banco = new Banco("Santander", bolsaCli, null/* broker */);
+		banco = new Banco("Santander", bolsaCli, bolsa1, null/* broker */);
 		banco.anadirCliente(cliente1);
 		banco.anadirCliente(cliente2);
 		banco.anadirCliente(cliente3);
@@ -87,7 +85,7 @@ public class Simulador {
 		System.out.println("Introduzca su saldo");
 		float saldo = escaner.leerFloat();
 
-		cli = new Cliente(nombre, dni, saldo, null);
+		cli = new Cliente(nombre, dni, saldo);
 		banco.anadirCliente(cli);
 	}
 
@@ -125,6 +123,14 @@ public class Simulador {
 	}
 
 	// 8.- Solicita recomendacion de inversion
+	public static void recomendarInversion() {
+		Escaner escaner = new Escaner();
+
+		System.out.println("Dni cliente: ");
+		String dniCliente = escaner.leerString();
+
+		banco.recomendacionInversion(dniCliente);
+	}
 
 	// 9. Anadir Empresa a la Bolsa
 	public static void anadirEmpresa() {
@@ -153,7 +159,6 @@ public class Simulador {
 		String nombreEmpresa = escaner.leerString();
 
 		bolsa1.eliminarEmpresa(nombreEmpresa);
-		System.out.println("Empresa " + nombreEmpresa + " eliminada correctamente\n");
 	}
 
 	// 11. Actualizacion de Valores
@@ -186,7 +191,7 @@ public class Simulador {
 
 		System.out.println("Cantidad maxima a invertir: ");
 		float cantidadMaxAInvertir = escaner.leerFloat();
-		
+
 		banco.realizarSolicitudCompra(dniCliente, nombreEmpresa, cantidadMaxAInvertir);
 	}
 
@@ -202,7 +207,7 @@ public class Simulador {
 
 		System.out.println("Cantidad de acciones para su venta: ");
 		int cantidadAcciones = escaner.leerEntero();
-		
+
 		banco.realizarSolicitudVenta(dniCliente, nombreEmpresa, cantidadAcciones);
 	}
 
@@ -210,10 +215,10 @@ public class Simulador {
 	public static void solicitarActualizacionValores() {
 		Escaner escaner = new Escaner();
 
-		System.out.println("Dni cliente: ");
-		String dniCliente = escaner.leerString();
+		System.out.println("Nombre empresa: ");
+		String nombreEmpresa = escaner.leerString();
 
-		banco.realizarSolicitudActualizacion(dniCliente);
+		banco.actualizacionDeValores(nombreEmpresa);
 	}
 
 	// 17.- Imprimir operaciones pendientes

@@ -1,5 +1,6 @@
 package es.poo.general;
 
+import java.util.Calendar;
 import java.util.Random;
 
 public class Utilidades {
@@ -13,6 +14,18 @@ public class Utilidades {
 		float numeroAleatorio = minValor + random.nextFloat() * (maxValor - minValor);
 
 		return numeroAleatorio;
+	}
+
+	public static String darFormatoFecha(Calendar fecha) {
+		int year = fecha.get(Calendar.YEAR);
+		int month = fecha.get(Calendar.MONTH) + 1;
+		int dayOfMonth = fecha.get(Calendar.DAY_OF_MONTH);
+		int hourOfDay = fecha.get(Calendar.HOUR_OF_DAY);
+		int minute = fecha.get(Calendar.MINUTE);
+		int second = fecha.get(Calendar.SECOND);
+
+		return Integer.toString(year) + Integer.toString(month) + Integer.toString(dayOfMonth)
+				+ Integer.toString(hourOfDay) + Integer.toString(minute) + Integer.toString(second);
 	}
 
 }
